@@ -1,0 +1,76 @@
+.login-wrapper {
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center ;
+    align-items: center;
+    /* background-color: #cec0a7; */
+}
+.centerWrapper{
+    display: flex;
+    justify-content: center;
+}
+#loginHeading{
+    margin-top: 10rem;
+    font-family: "buenard", serif;
+    font-size: 36px;
+}
+label{
+    margin-top: 1rem;
+    font-family: "buenard";
+    font-size: 18px;
+}
+#loginPrompt{
+    min-width: 100%;
+    margin-top: 1rem;
+    font-family: "buenard";
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    color: red;
+    font-size: 14px;
+}
+.loginFormInput{
+    min-width: 300px;
+    min-height: 46px;
+    padding-left: 3%;
+}
+#submitBtn{
+    margin-top: 1.5rem;
+
+    border-style: none;
+
+    background-color: #ECE2D0;
+    color: black;
+
+    font-family: "buenard";
+    /* font-family: "DM sans"; */
+    font-weight: 600;
+
+    font-size: 23px;
+    
+    /* padding: 0.5rem 2rem 0.5rem 2rem; */
+    height: 42px;
+    width: 100px;
+
+    border-radius: 10px;
+}
+#submitBtn:hover{
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    background-color: #cec0a7;
+}
+#submitBtn:active{
+    transition: none;
+    background-color: #a8987d;
+    box-shadow: #000000 inset 1px 1px 5px;
+}
+
+
+
+#submitButtonWrapper{
+    display: flex;
+    justify-content: center;
+}
+
