@@ -1,0 +1,6 @@
+GET http://localhost:3001/api/test
+Content-Type: application/json
+
+{
+    "user": "rada"
+}

@@ -1,0 +1,16 @@
+{
+  "proxy": "http://localhost:3001/",
+  "name": "iiitd-chat",
+  "version": "1.0.0",
+  "description": "iiitd chat app for DBMS",
+  "main": "index.js",
+  "scripts": {
+     "start": "concurrently -k -p '{name}' -n 'server,client' -c 'bgBlue.bold,bgGreen.bold' 'npm:server' 'npm:client'",
+       "server": "npm run devstart --prefix server",
+      "client": "npm start --prefix client",
+
+    "test": "start"
+  },
+  "author": "",
+  "license": "ISC"
+}
