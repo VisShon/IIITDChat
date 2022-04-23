@@ -1,9 +1,11 @@
 import './App.css';
 import { Navigate } from "react-router-dom";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
+import PrimaryWindow from './PrimaryWindow';
+import SecondaryWindow from './SecondaryWindow';
 
-function App() {
+function App(props) {
 
   // useEffect( () => {
   //   axios.get("/api/test", {
@@ -18,12 +20,9 @@ function App() {
   return (
     <>
     <div id="homeGrid">
-      <div id="profileBar"></div>
-      <div id='primaryWindow'>
-        <div id='topNavBar'></div>
-        <div id="topActionBar"></div>
-      </div>
-      <div id='secondaryWindow'></div>
+      <div id="profileBar">Profile Bar</div>
+      <PrimaryWindow section={props.section}/>
+      <SecondaryWindow />
     </div>
     </>
   );
