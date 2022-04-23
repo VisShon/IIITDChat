@@ -1,0 +1,11 @@
+#secondaryWindow{
+    grid-column: 3/4;
+    grid-row: 3/4;
+
+    background-color: #ffffff;
+    border-radius: 23px;
+
+    margin-left: 6rem;
+
+    grid-template-rows: 1fr 5fr;
+}
