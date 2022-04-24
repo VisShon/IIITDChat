@@ -85,6 +85,7 @@ app.post('/api/getRecentChats', function(req, res) {
     }
 });
 
+
 function checkAuthFromRequest(req, res) {
   const authHeader = req.get('Authorization');
 
