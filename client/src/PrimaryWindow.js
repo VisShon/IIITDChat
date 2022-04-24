@@ -4,6 +4,7 @@ import { useState } from "react";
 
 export default function PrimaryWindow(){
     const [section, setSection] = useState("chats");
+    const [chats, setChats] = useState([]);
 
     return(
         <>
@@ -16,7 +17,13 @@ export default function PrimaryWindow(){
 
             <div id="primaryWindow">
                 <SearchBar target={section} />
-
+                <tbody id="messagesWrapper">
+                    {/* {
+                        {chats.map(function (i, j , k) {
+                            return <ObjectRow name={i} date={j} lasttext={k}/>;
+                          })}
+                    } */}
+                </tbody>
             </div>
         </div>
         </>
