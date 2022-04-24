@@ -109,7 +109,7 @@ BEGIN
 END$$
 DELIMITER ;
 
-call iiitdChat.getChatGroup('IQB');
+call iiitdChat.getRecents('username');
 ----------------------------------------------------------------
 
 -- Search for contact by name

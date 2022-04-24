@@ -66,20 +66,24 @@ app.post('/auth', function(request, response) {
 });
 
 app.post('/api/getRecentChats', function(req, res) {
-  let decodedToken = checkAuthFromRequest(req, res);
-  if(!decodedToken) {return}
-  
-  const{userID,username} = decodedToken;
-  if(userID && username) {
-    db.query()
-  }
-  else {
-    response.send('Error 404');
-		response.end();
-  }
+    let jasonFile = require(jasonFile)
+    let decodedToken = checkAuthFromRequest(req, res);
+    if(!decodedToken) {return}
 
-})
-
+    const{userID,username} = decodedToken;
+    if(userID && username) {
+      db.query('call iiitdChat.getRecents(?)',
+      [username],
+      function(err, result,fields) {
+        if(err) throw err;
+        console.log(result);
+      });
+    }
+    else {
+      response.send('Error 404');
+      response.end();
+    }
+});
 
 function checkAuthFromRequest(req, res) {
   const authHeader = req.get('Authorization');
