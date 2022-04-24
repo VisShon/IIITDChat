@@ -3,7 +3,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import './Login.css';
 import { useNavigate } from "react-router-dom";
-
+import loginIllustration from "./assets/loginIllustration.svg"
 
 function loginUser(credentials) {
   return axios.post('http://localhost:3001/auth', credentials)
@@ -60,23 +60,27 @@ export default function Login() {
   }
   
   return(
-    <div className="login-wrapper">
-      <div id="loginHeading">Login</div>
-      <form onSubmit={handleSubmit}>
-        <label>
-          <p >Username</p>
-          <input className="formInput loginFormInput" type="text" placeholder='username' onChange={e => setUserName(e.target.value)}/>
-        </label>
-        <label>
-          <p>Password</p>
-          <input className="formInput loginFormInput" type="password" placeholder='password' onChange={e => setPassword(e.target.value)}/>
-        </label>
-        <div id='submitButtonWrapper'>
-          <button id="submitBtn" type="submit" value="Login">Submit</button>
-        </div>
-        <LoginPrompt prompt={prompt} />
-      </form>
+    <div id="loginGrid">
+
+      <div id='loginIllustrationWrapper'>
+        <img id='loginIllustration' src={loginIllustration} width="250px"/>
+      </div>
+
+      <div id="loginWrapper">
+        
+        <form onSubmit={handleSubmit}>
+          <div id="loginHeading">Login</div>
+          <input className="loginFormInput" type="text" placeholder='Roll Number' onChange={e => setUserName(e.target.value)}/>
+          <input className="loginFormInput" type="password" placeholder='Password' onChange={e => setPassword(e.target.value)}/>
+          <div id='submitButtonWrapper'>
+            <button id="submitBtn" type="submit" value="Login">Submit</button>
+          </div>
+          <LoginPrompt prompt={prompt} />
+        </form>
+      </div>
+      
     </div>
+    
   )
 }
 

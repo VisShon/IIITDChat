@@ -1,28 +1,29 @@
 import './App.css';
 import { Navigate } from "react-router-dom";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
+import PrimaryWindow from './PrimaryWindow';
+import SecondaryWindow from './SecondaryWindow';
 
-function App() {
-  if (!sessionStorage.getItem('user-token')) return <Navigate to='/login' />
+function App(props) {
 
   // useEffect( () => {
-  //   const getter = async () => {
-  //     const payload = {
-  //       user: "rada",
-  //     }
+  //   axios.get("/api/test", {
+  //   })
+  //   .then(res => {
+  //       console.log('received something')
+  //   })
+  // }, [])
 
-  //     const res = await axios("http://localhost:3001/api/test", {
-  //       data: { user: "rada" }
-  //     })
-  //     console.log(res);
-  //   }
-  //   getter()
-  // })
+  if (!sessionStorage.getItem('user-token')) return <Navigate to='/login' />
 
   return (
     <>
-    Home
+    <div id="homeGrid">
+      <div id="profileBar">Profile Bar</div>
+      <PrimaryWindow section={props.section}/>
+      <SecondaryWindow />
+    </div>
     </>
   );
 }

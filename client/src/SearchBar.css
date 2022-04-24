@@ -1,0 +1,23 @@
+#searchWrapper{
+    display: flex;
+    justify-content: center;
+
+    min-width: 100%;
+    grid-row: 1/2;
+}
+.inputBox{
+    border-style: none;
+    background-color: #CBFEFB;
+    border-radius: 20px;
+}
+.inputBox:focus{
+    outline: none;
+    background-color: #a1deda;
+}
+#searchInputBox{
+    width: 85%;
+    height: 46px;
+
+    margin-top: 1rem;
+    padding-left: 20px;
+}

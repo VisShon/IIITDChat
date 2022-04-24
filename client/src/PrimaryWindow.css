@@ -1,0 +1,54 @@
+#primaryWindowWrapper{
+    grid-column: 2/3;
+    grid-row: 3/4;
+
+    display: grid;
+    grid-template-rows: 1fr 11fr;
+
+    min-width: 100%;
+}
+#topNavBar{
+    /* min-width: 100% ; */
+    display: flex;
+    justify-content: space-evenly;
+
+    grid-row: 1/2;
+}
+#primaryWindow{
+    margin-top: 1rem;
+    grid-row: 2/3;
+
+    background-color: #ffffff;
+    border-radius: 23px;
+
+    min-width: 100%;
+    display: grid;
+    grid-template-rows: 1fr 1fr 4fr;
+}
+
+.sectionButton{
+    width: 30%;
+    height: 46px;
+    background-color: #CBFEFB;
+    border-style: none;
+    border-radius: 23px;
+}
+.sectionButton:hover{
+    background-color: #a3e6e1;
+}
+.sectionButton:active{
+    background-color: #8ad4cf;
+    box-shadow: #000000 inset 1px 1px 5px;
+}
+
+.whiteButton{
+    background-color: #ffffff;
+}
+.whiteButton:hover{
+    background-color: #f0f0f0;
+}
+.whiteButton:active{
+    background-color: #d5d5d5;
+    box-shadow: #000000 inset 1px 1px 5px;
+
+}

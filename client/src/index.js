@@ -17,6 +17,8 @@ ReactDOM.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} />
+      <Route path="/contacts" element={<App section="contacts"/>} />
+      <Route path="/blocked" element={<App section="blocked"/>} />
       <Route path="/login" element={<Login />} />
     </Routes>
   </BrowserRouter>,
