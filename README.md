@@ -1,4 +1,5 @@
 # IIITDchat
+![](client/src/assets/loginIllustration.png "IIITD chat")
 - Messaging app for IIIT Delhi students built on NODEjs
 - To run the back-end of the web app in development mode, go to the parent directory and run `npm start` command in the command line.
 

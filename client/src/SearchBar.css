@@ -8,7 +8,8 @@
 .inputBox{
     border-style: none;
     background-color: #CBFEFB;
-    border-radius: 20px;
+    height: 46px;
+    border-radius: 23px;
 }
 .inputBox:focus{
     outline: none;
