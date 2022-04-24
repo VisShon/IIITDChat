@@ -5,13 +5,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `fetchC`(
 IN id1 varchar(100),
 IN id2 varchar(100))
 BEGIN
-	DECLARE ID int;
     DECLARE RID varchar(100);
-    Set @ID = (
-        Select Chat_ID From Chat WHERE User_1_id = id AND User_2_id = id2
+    Set @RID = (
+        Select Chat_ID From Chat WHERE User_1_id = id1 AND User_2_id = id2
         );
-    Set @RID = CAST(@ID AS CHAR(100));
-    Set @RID = CONCAT('c',@RID);
 	Select * From Message Where Reciever_ID = @RID;
 END$$
 DELIMITER ;
@@ -26,7 +23,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `fetchG`(
 IN id varchar(100))
 BEGIN
     DECLARE RID varchar(100);
-    Set @RID = CONCAT('g',id);
+    Set @RID = id;
 	Select * From Message Where Reciever_ID = @RID;
 END$$
 DELIMITER ;
@@ -42,10 +39,15 @@ IN id varchar(100),
 IN lim int,
 In ofs int)
 BEGIN
-    Select Contact_Email_ID From Contacts where Email_ID = id Limit lim offset ofs;
+    CREATE TEMPORARY table tempC(
+        CID varchar(100)
+    );
+    Insert into tempC(CID) Select Contact_Email_ID From Contacts where Email_ID = id;
+    Select Email_ID, Status, Log from Users Inner join tempC on Email_ID = CID Limit lim offset ofs;
+    Drop table tempC;
 END$$
 DELIMITER ;
---tbd
+
 call iiitdChat.fetchContacts('user1@gmail.com', 5, 0);
 ----------------------------------------------------------------
 
@@ -79,6 +81,28 @@ BEGIN
     );
     Insert into temp(ID) SELECT Chat_ID from chat where User_1_ID = @UID OR User_2_ID = @UID;
     Insert into temp(ID) Select Group_ID from Grps where GName=Names; 
+    Select Reciever_ID, Message_Body, Sending_Date_Time from Message Inner join temp ON (`ID` = Reciever_ID);
+    Drop table temp;
+
+END$$
+DELIMITER ;
+
+call iiitdChat.getChatGroup('IQB');
+----------------------------------------------------------------
+
+-- fetch recents
+USE `iiitdChat`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getRecents`(
+IN Names varchar(100))
+BEGIN
+    Declare UID varchar(100) default '';
+    Select Email_ID from Users where Name=Names into @UID;
+    CREATE TEMPORARY table temp(
+        ID varchar(100)
+    );
+    Insert into temp(ID) SELECT Chat_ID from chat where User_1_ID = @UID OR User_2_ID = @UID;
+    Insert into temp(ID) Select Group_ID from User_Group where User_ID = @UID; 
     Select Reciever_ID, Message_Body, Sending_Date_Time from Message Inner join temp ON (`ID` = Reciever_ID);
     Drop table temp;
 

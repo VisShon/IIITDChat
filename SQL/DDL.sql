@@ -9,6 +9,7 @@ CREATE TABLE Users (
   Department varchar(3) not null,
   Date_of_joining date not null,
   status varchar(100),
+  Log dateTime,
   PRIMARY KEY (Email_ID)
 );
 CREATE TABLE Chat (
