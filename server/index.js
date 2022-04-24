@@ -33,7 +33,7 @@ db.connect(err => {
 
 const PORT = process.env.PORT || 3001;
 
-  // http://localhost:3000/auth
+  // http://localhost:3001/auth
 app.post('/auth', function(request, response) {
 	let username = request.body.username;
 	let password = request.body.password;
@@ -64,6 +64,22 @@ app.post('/auth', function(request, response) {
 		response.end();
 	}
 });
+
+app.post('/api/getRecentChats', function(req, res) {
+  let decodedToken = checkAuthFromRequest(req, res);
+  if(!decodedToken) {return}
+  
+  const{userID,username} = decodedToken;
+  if(userID && username) {
+    db.query()
+  }
+  else {
+    response.send('Error 404');
+		response.end();
+  }
+
+})
+
 
 function checkAuthFromRequest(req, res) {
   const authHeader = req.get('Authorization');
