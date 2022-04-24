@@ -65,6 +65,7 @@ app.post('/auth', function(request, response) {
 	}
 });
 
+// Need userID and username in the decoded token for this.
 app.post('/api/getRecentChats', function(req, res) {
     let jasonFile = require(jasonFile)
     let decodedToken = checkAuthFromRequest(req, res);
@@ -83,6 +84,80 @@ app.post('/api/getRecentChats', function(req, res) {
       response.send('Error 404');
       response.end();
     }
+});
+
+// Need userID for this
+app.post('/api/getLog', function(req, res) {
+  let jasonFile = require(jasonFile)
+  let decodedToken = checkAuthFromRequest(req, res);
+  if(!decodedToken) {return}
+  const{userID,username} = decodedToken;
+  if(userID && username) {
+    db.query('Select Name, Log from user where Email_ID = ?',
+    [usernID],
+    function(err, result,fields) {
+      if(err) throw err;
+      respond.send(result);
+    });
+  }
+  else {
+    response.send('Error 404');
+    response.end();
+  }
+});
+
+//need the userID of both the users one in the decoded token and one in the request.
+//if it is a group we need the group id for fething the messages.
+//not handling the user messages only using the messages.
+app.post('/api/getMessages', function(req, res) {
+  let jasonFile = require(jasonFile)
+  let decodedToken = checkAuthFromRequest(req, res);
+  if(!decodedToken) {return}
+  const{userID,username} = decodedToken;
+  if(userID && username) {
+    let userID2 = req.body.userID2
+    if(identity) {
+      db.query('call iiitdChat.fetchC(?,?)',
+      [userID,userID2],
+      function(err, result,fields) {
+        if(err) throw err;
+        respond.send(result);
+      });
+    }
+    else{
+      let groupID = req.body.groupID
+      db.query('call iiitdChat.fetchg(?)',
+      [groupID],
+      function(err, result,fields) {
+        if(err) throw err;
+        respond.send(result);
+      });
+    }
+  }
+  else {
+    response.send('Error 404');
+    response.end();
+  }
+});
+
+//need the message info for ending the messages.
+app.post('/api/getLog', function(req, res) {
+  let jasonFile = require(jasonFile)
+  let decodedToken = checkAuthFromRequest(req, res);
+  if(!decodedToken) {return}
+  const{userID,username} = decodedToken;
+  if(userID && username) {
+    db.query('Select Name, Log from user where Name = ?',
+    [username],
+    function(err, result,fields) {
+      if(err) throw err;
+      respond.send(result);
+    });
+  }
+  else {
+    response.send('Error 404');
+    response.end();
+  }
 });
 
 

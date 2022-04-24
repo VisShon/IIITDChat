@@ -22,13 +22,14 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `fetchG`(
 IN id varchar(100))
 BEGIN
+
     DECLARE RID varchar(100);
     Set @RID = id;
 	Select * From Message Where Reciever_ID = @RID;
 END$$
-DELIMITER ;
+DELIMITER;
 
-call iiitdChat.fetchG(1);
+call iiitdChat.fetchG();
 ----------------------------------------------------------------
 
 --To fetch all the contacts
@@ -99,11 +100,25 @@ BEGIN
     Declare UID varchar(100) default '';
     Select Email_ID from Users where Name=Names into @UID;
     CREATE TEMPORARY table temp(
+        ID varchar(100),
+        Name varchar(100)
+    );
+    Create TEMPORARY table temp2(
+        ID varchar(100),
+        Email_ID varchar(100)
+    );
+    Insert INTO temp2(ID, Email_ID) Select Chat_ID,User_2_ID from chat where User_1_ID = @UID;
+    Insert INTO temp2(ID, Email_ID) Select Chat_ID,User_1_ID from chat where User_2_ID = @UID;
+    Insert into temp(ID,Name) SELECT ID,Name from temp2 Inner join Users on Users.Email_ID = temp2.Email_ID;
+    drop table temp2;
+
+    Create TEMPORARY table temp2(
         ID varchar(100)
     );
-    Insert into temp(ID) SELECT Chat_ID from chat where User_1_ID = @UID OR User_2_ID = @UID;
-    Insert into temp(ID) Select Group_ID from User_Group where User_ID = @UID; 
-    Select Reciever_ID, Message_Body, Sending_Date_Time from Message Inner join temp ON (`ID` = Reciever_ID);
+    Insert INTO temp2(ID) Select Group_ID from User_Group where User_ID = @UID;
+    Insert into temp(ID,Name) Select Group_ID, GName from Grps Inner join temp2 on Grps.Group_ID = temp2.ID; 
+    drop table temp2;
+    Select Reciever_ID, Message_Body, Sending_Date_Time,Name from Message Inner join temp ON (`ID` = Reciever_ID);
     Drop table temp;
 
 END$$
