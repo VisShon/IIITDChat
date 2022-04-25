@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require('path');
 const jwt = require('jsonwebtoken');
+const { response } = require("express");
 // const res = require("express/lib/response");
 
 const app = express();
@@ -16,10 +17,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 const db = mysql.createConnection(
     {
-        host: 'localhost',
-        user: 'root',
+        host: 'deep.moe',
+        user: 'iiitd-chat',
         password: process.env.KEY,
-        database: 'iiitd_chat'
+        database: 'iiitdchat'
     }
 );
 
@@ -41,23 +42,19 @@ app.post('/auth', function(request, response) {
   console.log("Backend: handling /auth");
 
 	if (username && password) {
-		db.query('SELECT * FROM users WHERE Roll_no = ? AND password = ?',
+		db.query('SELECT * FROM users WHERE Roll_no = ? AND Email_ID = ?',
       [username, password],
       function(error, results, fields) {
         if (error) throw error;
-          
           if (results.length === 1) {
             const user = results[0];
             const { Name } = user;
             const mytoken = jwt.sign({Name}, process.env.JWT_SECRET);
-            
             response.json(mytoken);
-
           } else {
             response.send('Incorrect Username and/or Password!');
           }			
           response.end();
-        
       });
 	} else {
 		response.send('Please enter Username and Password!');
@@ -65,51 +62,44 @@ app.post('/auth', function(request, response) {
 	}
 });
 
-app.post('/api/getRecentChats', function(req, res) {
-    let jasonFile = require(jasonFile)
+app.get('/api/getRecentChats', function(req, res) {
     let decodedToken = checkAuthFromRequest(req, res);
-    if(!decodedToken) {return}
+    if(!decodedToken) return;
 
-    const{userID,username} = decodedToken;
-    if(userID && username) {
+    const{Name} = decodedToken;
+    if(Name) {
       db.query('call iiitdChat.getRecents(?)',
-      [username],
+      [Name],
       function(err, result,fields) {
         if(err) throw err;
         console.log(result);
+        res.json(result);
       });
     }
     else {
-      response.send('Error 404');
-      response.end();
+      res.send('Error 404');
+      res.end();
     }
 });
 
 function checkAuthFromRequest(req, res) {
   const authHeader = req.get('Authorization');
 
-  if (!authHeader && !authHeader.toLocaleLowerCase().startsWith('bearer ')) {
+  if (!(authHeader && authHeader.toLocaleLowerCase().startsWith('bearer '))) {
     res.status(401).json({message: "Missing or invalid token"});
     return null;
   }
 
   const token = authHeader.substring(7);
-  const decodedToken = jwt.decode(token);
 
-  if (!decodedToken) {
-    res.status(401).json({message: "Bad token"});
+  if (!jwt.verify(token, process.env.JWT_SECRET)) {
+    res.status(401).json({message: "Unauthorized"});
     return null;
   }
 
-  return decodedToken;
+  return jwt.decode(token);
 }
 
-app.get("/api/test", (req, res)=>{
-  return res.status(200).send("hello");
-  res.json({
-    working: "true"
-  })
-})
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });

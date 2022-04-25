@@ -1,7 +1,8 @@
 #homeGrid{
   display: grid;
   grid-template-rows: 1fr 1fr 14fr 2fr ;
-  grid-template-columns: 2fr 9fr 18fr 2fr;
+  grid-template-columns: 2fr 7fr 21fr 2fr;
+
 
   /* column-gap: 4rem; */
   min-width: 100%;

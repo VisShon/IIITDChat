@@ -1,3 +1,6 @@
+body{
+    font-family: "poppins";    
+}
 #primaryWindowWrapper{
     grid-column: 2/3;
     grid-row: 3/4;
@@ -23,7 +26,7 @@
 
     min-width: 100%;
     display: grid;
-    grid-template-rows: 1fr 1fr 4fr;
+    grid-template-rows: 80px auto;
 }
 
 .sectionButton{
@@ -32,6 +35,8 @@
     background-color: #CBFEFB;
     border-style: none;
     border-radius: 23px;
+    font-family: "poppins";    
+
 }
 .sectionButton:hover{
     background-color: #a3e6e1;
@@ -51,4 +56,30 @@
     background-color: #d5d5d5;
     box-shadow: #000000 inset 1px 1px 5px;
 
+}
+
+#messagesWrapper {
+    max-height: 55vh;
+
+    grid-row: 2/3;
+    
+    display: flex;
+    overflow-y: auto;
+    flex-direction: column;
+    flex-grow: auto;
+
+    margin-left: 10px;
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+::-webkit-scrollbar-track {
+    border-radius: 10px;   
+}
+::-webkit-scrollbar-thumb {
+    background: #97E9E5;
+    border-radius: 5px;
 }
