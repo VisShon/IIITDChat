@@ -134,6 +134,22 @@ app.post('/api/getMessages', function(req, res) {
   }
 });
 
+app.get("/api/getAllContacts", (req, res)=>{
+  let decodedToken = checkAuthFromRequest(req, res);
+  if(!decodedToken) {return}
+  const{userID,username} = decodedToken;
+
+  //fetch contacts
+})
+
+app.get("/api/getBlockedList", (req, res)=>{
+  let decodedToken = checkAuthFromRequest(req, res);
+  if(!decodedToken) {return}
+  const{userID,username} = decodedToken;
+
+  //fetch blockedlist
+})
+
 //need the message info for ending the messages.
 app.post('/api/getLog', function(req, res) {
   let decodedToken = checkAuthFromRequest(req, res);

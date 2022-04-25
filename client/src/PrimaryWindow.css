@@ -58,7 +58,7 @@ body{
 
 }
 
-#messagesWrapper {
+#cardsWrapper {
     max-height: 55vh;
 
     grid-row: 2/3;
