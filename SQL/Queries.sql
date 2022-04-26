@@ -1,3 +1,4 @@
+
 -- To fetch Chats of a person for chats
 USE `iiitdchat`;
 DELIMITER $$
@@ -30,26 +31,6 @@ END$$
 DELIMITER;
 
 call iiitdchat.fetchG();
-----------------------------------------------------------------
-
---To fetch all the contacts
-USE `iiitdchat`;
-DELIMITER $$
-CREATE  PROCEDURE `fetchContacts`(
-IN id varchar(100),
-IN lim int,
-In ofs int)
-BEGIN
-    CREATE TEMPORARY table tempC(
-        CID varchar(100)
-    );
-    Insert into tempC(CID) Select Contact_Email_ID From Contacts where Email_ID = id;
-    Select Email_ID, Status, Log from Users Inner join tempC on Email_ID = CID Limit lim offset ofs;
-    Drop table tempC;
-END$$
-DELIMITER ;
-
-call iiitdchat.fetchContacts('user1@gmail.com', 5, 0);
 ----------------------------------------------------------------
 
 --Sending Message
@@ -125,6 +106,51 @@ END$$
 DELIMITER ;
 
 call iiitdchat.getRecents('username');
+----------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------
+--To fetch all the contacts
+USE `iiitdchat`;
+DELIMITER $$
+CREATE  PROCEDURE `fetchContacts`(
+IN id varchar(100),
+IN lim int,
+In ofs int)
+BEGIN
+    CREATE TEMPORARY table tempC(
+        CID varchar(100)
+    );
+    Insert into tempC(CID) Select Contact_Email_ID From Contacts where Email_ID = id;
+    Select Email_ID, Status, Log from Users Inner join tempC on Email_ID = CID Limit lim offset ofs;
+    Drop table tempC;
+END$$
+DELIMITER ;
+
+call iiitdchat.fetchContacts('user1@gmail.com', 5, 0);
+----------------------------------------------------------------
+
+-- New group is formed
+
+----------------------------------------------------------------
+
+-- new contact starts a chat
+
+----------------------------------------------------------------
+
+
+
+
+
+-- Search for contact by name
+
 ----------------------------------------------------------------
 
 -- Search for contact by name
