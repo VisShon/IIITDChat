@@ -12,10 +12,10 @@
     flex-direction: column;
 }
 .container:hover{
-    background-color: #b9f7f3;
+    background-color: #8fe4df;
 }
 .container:active{
-    background-color: #8fe4df;
+    background-color: #79d4ce;
 }
 .name{
     font-family: "poppins";

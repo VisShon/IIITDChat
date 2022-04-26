@@ -1,11 +1,11 @@
 import "./PrimaryWindow.css";
 import SearchBar from "./SearchBar";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import ChatContainer from "./ChatContainer";
+import ContactContainer from "./ContactContainer";
 
-export default function PrimaryWindow(){
+export default function PrimaryWindow({sectionSetter, section, setItem, item}){
     const initialChat = [{
         Reciever_ID: "1234",
         Message_Body: "hello amongus sussy baka fortnite victry royal",
@@ -13,10 +13,7 @@ export default function PrimaryWindow(){
         Name: "Madarchod Retard"
     }];
     const initialChat2 = initialChat.concat(initialChat).concat(initialChat).concat(initialChat);
-    const [section, setSection] = useState("chats");
     const [containers, setContainers] = useState(initialChat2.concat(initialChat2));
-
-    const [selectedChat, setSelectedChat] = useState("null");
 
     useEffect(()=>{
         switch (section){
@@ -31,32 +28,29 @@ export default function PrimaryWindow(){
                             Sending_Date_Time: new Date(message.Sending_Date_Time)
                         }
                     });
-
                     const uniqueChatMap = {};
                     receivedChats.forEach(chat => uniqueChatMap[chat.Reciever_ID] = chat);
-                    console.log(12, uniqueChatMap, receivedChats)
+                    // console.log(12, uniqueChatMap, receivedChats)
                     setContainers(Object.values(uniqueChatMap));
-                })
-                .catch(error => {
+                }).catch(error => {
                     console.error(error.response.data.message);
                 })
-                console.log("containers: "+containers);
             case "contacts":
-                axios.get("https://localhost:3001/api/getAllContacts", {
+                axios.get("http://localhost:3001/api/getAllContacts", {
                     headers: { Authorization: `bearer ${sessionStorage['user-token']}` }
                 }).then((response => {
+                    console.log(response);
                     // processing the backend data for user contacts
-                }))
-                .catch(error => {
+                })).catch(error => {
                     console.error(error.response.data.message);
                 })
             case "blocked":
-                axios.get("https://localhost:3001/api/getBlockedList", {
+                axios.get("http://localhost:3001/api/getBlockedList", {
                     headers: { Authorization: `bearer ${sessionStorage['user-token']}` }
                 }).then((response => {
                     // processing the backend data for user blockedlist
-                }))
-                .catch(error => {
+                    console.log(response);
+                })).catch(error => {
                     console.error(error.response.data.message);
                 })
         }
@@ -64,15 +58,15 @@ export default function PrimaryWindow(){
 
 
     function chatMapper(chat, index){
-        return <ChatContainer key={index} name={chat.Name} sentdate={chat.Sending_Date_Time} lasttext={chat.Message_Body}/>;
+        return <ChatContainer key={index} name={chat.Name} sentdate={chat.Sending_Date_Time} lasttext={chat.Message_Body} setItem={setItem} ID={chat.Reciever_ID}/>;
     }
     function contactMapper(contact, index){
         // return contactcontainer mapped array
-        ;
+        return <ContactContainer key={index} name={contact.name} status={contact.status} />;
     }
     function blockedMapper(contact, index){
         // return blockedcontainer mapped array
-        ;
+        return <ContactContainer key={index} name={contact.name} status={contact.status} />;
     }
     function cards(section, containers){
         switch(section){
@@ -89,9 +83,9 @@ export default function PrimaryWindow(){
         <>
         <div id="primaryWindowWrapper">
             <div id="topNavBar">
-                <button className={section=="chats"?"sectionButton whiteButton":"sectionButton"} id="chatsBtn" onClick={() => {setSection("chats")}}>Chats</button>
-                <button className={section=="contacts"?"sectionButton whiteButton":"sectionButton"}  id="contactsBtn" onClick={() => {setSection("contacts")}}>Contacts</button>
-                <button className={section=="blocked"?"sectionButton whiteButton":"sectionButton"}  id="blockedBtn" onClick={() => {setSection("blocked")}}>Blocked</button>
+                <button className={section=="chats"?"sectionButton whiteButton":"sectionButton"} id="chatsBtn" onClick={() => {sectionSetter("chats")}}>Chats</button>
+                <button className={section=="contacts"?"sectionButton whiteButton":"sectionButton"}  id="contactsBtn" onClick={() => {sectionSetter("contacts")}}>Contacts</button>
+                <button className={section=="blocked"?"sectionButton whiteButton":"sectionButton"}  id="blockedBtn" onClick={() => {sectionSetter("blocked")}}>Blocked</button>
             </div>
 
             <div id="primaryWindow">
