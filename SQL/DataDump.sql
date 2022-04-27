@@ -133,3 +133,16 @@ INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`is
 INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user1@gmail.com','1','0','0','0','0');
 INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user6@gmail.com','1','0','0','0','0');
 INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user7@gmail.com','1','0','0','0','0');
+<<<<<<< HEAD
+
+INSERT INTO `iiitdchat`.`Teacher` (`Teacher_Email_ID`, `Teacher_Name`) VALUES ('faizanmd@gmail.com', 'Md Faizan');
+INSERT INTO `iiitdchat`.`Teacher` (`Teacher_Email_ID`, `Teacher_Name`) VALUES ('kooteshwar@gmail.com', 'Koot Eshwar');
+INSERT INTO `iiitdchat`.`Teacher` (`Teacher_Email_ID`, `Teacher_Name`) VALUES ('smriti@gmail.com', 'Smriti Irani');
+INSERT INTO `iiitdchat`.`Teacher` (`Teacher_Email_ID`, `Teacher_Name`) VALUES ('vishnu@gmail.com', 'vishnu Kumar');
+INSERT INTO `iiitdchat`.`Teacher` (`Teacher_Email_ID`, `Teacher_Name`) VALUES ('ambuj@gmail.com', 'Buj Ambedkar');
+INSERT INTO `iiitdchat`.`Teacher` (`Teacher_Email_ID`, `Teacher_Name`) VALUES ('gaurav@gmail.com', 'Gaurav Sharma');
+INSERT INTO `iiitdchat`.`Teacher` (`Teacher_Email_ID`, `Teacher_Name`) VALUES ('rubika@gmail.com', 'Rubika Nautiyal');
+
+=======
+
+>>>>>>> 0f05084e91bfcbbfafdc1f3b1cce4058ee7745ea
