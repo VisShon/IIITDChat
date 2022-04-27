@@ -1,10 +1,10 @@
-import "./ContactContainer.css";
+import "./BlockedContainer.css";
 
-export default function ContactContainer({name, status, setSelectedContact, selectedContact, setSelectedBlockedContact, selectedBlockedContact, ID}){
-    if(ID==selectedContact){
+export default function BlockedContainer({name, status, setSelectedBlockedContact, selectedBlockedContact, ID}){
+    if(ID==selectedBlockedContact){
         return(
             <>
-            <div className="container darkContainer" onClick={() => {setSelectedContact(ID)}}>
+            <div className="container darkContainer" onClick={() => {setSelectedBlockedContact(ID)}}>
                 <div className="contactName">{name}</div>
                 <div className="contactStatus">{status}</div>
             </div>
@@ -14,7 +14,7 @@ export default function ContactContainer({name, status, setSelectedContact, sele
     else{
         return(
             <>
-            <div className="container" onClick={() => {setSelectedContact(ID)}}>
+            <div className="container" onClick={() => {setSelectedBlockedContact(ID)}}>
                 <div className="contactName">{name}</div>
                 <div className="contactStatus">{status}</div>
             </div>
