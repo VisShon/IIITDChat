@@ -1,9 +1,10 @@
+use iiitdchat;
 DELIMITER $$
 CREATE
-    TRIGGER my_trig AFTER INSERT
-    ON Group_BlockedList
+    TRIGGER TriggerGrpBlock AFTER INSERT
+    ON group_blockedlist
     FOR EACH ROW
     BEGIN
-        Update User_Group Set isBlocked = 1 where User_ID= new.Blocked_Email_ID
+        Update user_Group Set isBlocked = 1 where User_ID= new.Blocked_Email_ID;
     END$$
-DELIMITER;
+DELIMITER ;

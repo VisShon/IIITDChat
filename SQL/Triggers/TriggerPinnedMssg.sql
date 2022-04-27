@@ -1,7 +1,7 @@
 DELIMITER $$
 CREATE
-    TRIGGER my_trig AFTER Insert ON Pinned_Message
+    TRIGGER TrigPinned AFTER Insert ON pinned_message
     FOR EACH ROW BEGIN
-        Update Message set isPinned = 1 where MessageID = new.MessageID;
+        Update message set isPinned = 1 where Message_ID = new.Message_ID;
     END$$
-DELIMITER;
+DELIMITER ;

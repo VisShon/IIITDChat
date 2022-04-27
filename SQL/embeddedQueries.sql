@@ -91,3 +91,8 @@ Select Blocked_Email_ID from User_BlockedList where User_Email_ID= ?;
 Use iiitdchat;
 Select Blocked_Email_ID from User_BlockedList where User_Email_ID= ?;
 ----------------------------------------------------
+
+--adding  a user to a group
+Use iiitdchat;
+Select Blocked_Email_ID from User_BlockedList where User_Email_ID= ?;
+----------------------------------------------------
