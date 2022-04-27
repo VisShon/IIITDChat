@@ -44,6 +44,7 @@
 #itemInfo{
     margin-right: 2rem;
     align-self: center;
+    font-size: 12px;
 }
 
 #chatWindow{
@@ -96,6 +97,7 @@
     font-size: 14px;
     
     background-color: #39AEA8;
+    color: #ffffff;
 
     margin-left: .8%;
     margin-right: 1.5%;
@@ -108,7 +110,7 @@
 }
 #msgSendBtn:active{
     background-color: #1b807b;
-    box-shadow: inset 1px 1px 5px;
+    box-shadow: inset 1px 1px 5px #000000;
 }
 #secondaryWindow2{
     grid-column: 3/4;

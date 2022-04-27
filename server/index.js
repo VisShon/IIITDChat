@@ -83,23 +83,34 @@ app.get('/api/getRecentChats', function(req, res) {
 });
 
 // Need userID for this
-// app.post('/api/getLog', function(req, res) {
-//   let decodedToken = checkAuthFromRequest(req, res);
-//   if(!decodedToken) {return}
-//   const{userID,username} = decodedToken;
-//   if(userID && username) {
-//     db.query('Select Name, Log from user where Email_ID = ?',
-//     [usernID],
-//     function(err, result,fields) {
-//       if(err) throw err;
-//       respond.send(result);
-//     });
-//   }
-//   else {
-//     response.send('Error 404');
-//     response.end();
-//   }
-// });
+app.get('/api/getItemInfo/:item', function(req, res) {
+  let decodedToken = checkAuthFromRequest(req, res);
+  if(!decodedToken) {return}
+  const{Name ,Email_ID} = decodedToken;
+  const { item } = req.params;
+  const recID = item;
+
+  console.log(Name, Email_ID, recID);
+  if(Name && Email_ID && recID) {
+    if(recID.startsWith("c")){
+      db.query('SELECT u.Name, u.Log FROM users AS u, chat AS c WHERE c.Chat_ID = ? AND c.User_2_ID = u.Email_ID',
+      [recID], function(err, result,fields) {
+        if(err) throw err;
+        res.json(result);
+      });
+    }
+    else if(recID.startsWith("g")){
+      db.query('SELECT g.GName FROM grps AS g WHERE g.Group_ID = ?',
+      [recID], function(err, result,fields) {
+        if(err) throw err;
+        res.json(result);
+      });
+    }
+  }
+  else {
+    res.status(400).send('Missing name, email or receiver id');
+  }
+});
 
 //need the userID of both the users one in the decoded token and one in the request.
 //if it is a group we need the group id for fething the messages.
@@ -137,16 +148,38 @@ app.get('/api/getRecentChats', function(req, res) {
 app.get("/api/getAllContacts", (req, res)=>{
   let decodedToken = checkAuthFromRequest(req, res);
   if(!decodedToken) {return}
-  const{Name, Email} = decodedToken;
+  const{Name ,Email_ID} = decodedToken;
 
-  //fetch contacts
+  console.log(Name, Email_ID);
+  if(Name && Email_ID) {
+    db.query('SELECT u.Name, u.status, u.Email_ID FROM users AS u, contacts AS c WHERE c.Contact_Email_ID = u.Email_ID AND c.Email_ID = ?',
+    [Email_ID], function(err, result,fields) {
+      if(err) throw err;
+      res.json(result);
+    });
+  }
+  else {
+    res.status(400).send('Missing name, email or receiver id');
+  }
+  //fetching contacts
 })
 
 app.get("/api/getBlockedList", (req, res)=>{
   let decodedToken = checkAuthFromRequest(req, res);
   if(!decodedToken) {return}
-  const{Name, Email} = decodedToken;
+  const{Name, Email_ID} = decodedToken;
 
+  console.log(Name, Email_ID);
+  if(Name && Email_ID) {
+    db.query('SELECT u.Name, u.status, u.Email_ID FROM users AS u, user_blockedlist AS c WHERE c.Blocked_Email_ID = u.Email_ID AND c.User_Email_ID = ?',
+    [Email_ID], function(err, result,fields) {
+      if(err) throw err;
+      res.json(result);
+    });
+  }
+  else {
+    res.status(400).send('Missing name, email or receiver id');
+  }
   //fetch blockedlist
 })
 

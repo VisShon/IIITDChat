@@ -15,7 +15,6 @@ function App(props) {
       headers: { Authorization: `bearer ${sessionStorage['user-token']}`}
     })
     .then(res => {
-        console.log(res);
         setProfileName(res.data);
     })
     .catch(error => {

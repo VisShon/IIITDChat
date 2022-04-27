@@ -13,7 +13,9 @@ export default function PrimaryWindow({sectionSetter, section, setItem, item}){
         Name: "Madarchod Retard"
     }];
     const initialChat2 = initialChat.concat(initialChat).concat(initialChat).concat(initialChat);
-    const [containers, setContainers] = useState(initialChat2.concat(initialChat2));
+    const [chats, setChats] = useState(initialChat2.concat(initialChat2));
+    const [contacts, setContacts] = useState([]);
+    const [blockedContacts, setBlockedContacts] = useState([]);
 
     useEffect(()=>{
         switch (section){
@@ -30,52 +32,54 @@ export default function PrimaryWindow({sectionSetter, section, setItem, item}){
                     });
                     const uniqueChatMap = {};
                     receivedChats.forEach(chat => uniqueChatMap[chat.Reciever_ID] = chat);
-                    // console.log(12, uniqueChatMap, receivedChats)
-                    setContainers(Object.values(uniqueChatMap));
+                    setChats(Object.values(uniqueChatMap));
+                    console.log("chats", chats);
                 }).catch(error => {
-                    console.error(error.response.data.message);
+                    console.error(error);
                 })
             case "contacts":
                 axios.get("http://localhost:3001/api/getAllContacts", {
                     headers: { Authorization: `bearer ${sessionStorage['user-token']}` }
                 }).then((response => {
-                    console.log(response);
                     // processing the backend data for user contacts
+                    setContacts(response.data);
+                    console.log("contacts", contacts);
                 })).catch(error => {
-                    console.error(error.response.data.message);
+                    console.error(error);
                 })
             case "blocked":
                 axios.get("http://localhost:3001/api/getBlockedList", {
                     headers: { Authorization: `bearer ${sessionStorage['user-token']}` }
                 }).then((response => {
                     // processing the backend data for user blockedlist
-                    console.log(response);
+                    setBlockedContacts(response.data);
+                    console.log("blocked", blockedContacts);
+
                 })).catch(error => {
-                    console.error(error.response.data.message);
+                    console.error(error);
                 })
         }
     }, [section]);
 
-
     function chatMapper(chat, index){
-        return <ChatContainer key={index} name={chat.Name} sentdate={chat.Sending_Date_Time} lasttext={chat.Message_Body} setItem={setItem} ID={chat.Reciever_ID}/>;
+        return <ChatContainer key={index} name={chat.Name} sentdate={chat.Sending_Date_Time} lasttext={chat.Message_Body} setItem={setItem} ID={chat.Reciever_ID} item={item}/>;
     }
     function contactMapper(contact, index){
         // return contactcontainer mapped array
-        return <ContactContainer key={index} name={contact.name} status={contact.status} />;
+        return <ContactContainer key={index} name={contact.Name} status={contact.status} />;
     }
     function blockedMapper(contact, index){
         // return blockedcontainer mapped array
-        return <ContactContainer key={index} name={contact.name} status={contact.status} />;
+        return <ContactContainer key={index} name={contact.Name} status={contact.status} />;
     }
-    function cards(section, containers){
+    function cards(section, chats, contacts, blockedContacts){
         switch(section){
             case "chats":
-                return containers.map(chatMapper);
+                return chats.map(chatMapper);
             case "contacts":
-                return containers.map(contactMapper);
+                return contacts.map(contactMapper);
             case "blocked":
-                return containers.map(blockedMapper);
+                return blockedContacts.map(blockedMapper);
         }
     }
 
@@ -93,7 +97,7 @@ export default function PrimaryWindow({sectionSetter, section, setItem, item}){
 
                 <div id="cardsWrapper">
                     {
-                        cards(section, containers)
+                        cards(section, chats, contacts, blockedContacts)
                     }
                 </div>
             </div>
