@@ -112,6 +112,33 @@ app.get('/api/getItemInfo/:item', function(req, res) {
   }
 });
 
+app.get("/api/getContactInfo/:item", (req, res) => {
+  let decodedToken = checkAuthFromRequest(req, res);
+  if(!decodedToken) {return}
+  const{Name ,Email_ID} = decodedToken;
+  const { selectedContact } = req.params;
+  const contactEmail = selectedContact;
+
+  console.log(8, Name, Email_ID, contactEmail);
+  if(Name && Email_ID && recID) {
+    db.query('SELECT u.Name, u.status FROM users AS u WHERE u.Email_ID = ?',
+    [contactEmail], function(err, result,fields) {
+      if(err) throw err;
+      res.json(result);
+    });
+  }
+  else {
+    res.status(400).send('Missing name, email or contact email');
+  }
+})
+
+app.get("/api/getBlockedInfo/:item", (req, res) => {
+  let decodedToken = checkAuthFromRequest(req, res);
+  if(!decodedToken) {return}
+  const{Name ,Email_ID} = decodedToken;
+  const { item } = req.params;
+})
+
 app.get('/api/getMessages/:item', function(req, res) {
   let decodedToken = checkAuthFromRequest(req, res);
   if(!decodedToken) {return}

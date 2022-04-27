@@ -97,3 +97,21 @@ Use iiitdchat;
 INSERT INTO user_group (`User_ID`, `Group_ID`,`Date_Of_Joining`,`isDeleted`,`Date_Of_leaving`,`isBlocked`) 
 VALUES (?,?,?,'0',null,'0');
 ----------------------------------------------------
+
+--to fetch all the blocked email IDSs
+Select Blocked_Email_ID from User_BlockedList where User_Email_ID= ?;
+----------------------------------------------------
+
+--getting messages for a Chat
+SELECT u.Name, u.Email_ID, m.Message_ID, m.Sender_ID, m.Reply_Msg_ID, m.Message_Body, m.Sending_Date_Time, m.Forward_Msg_ID, m.UpvoteCount, m.isDeletedForEveryone, m.isPicture 
+FROM users AS u, message AS m WHERE m.Reciever_ID = ? AND u.Email_ID = m.Sender_ID;
+----------------------------------------------------
+
+--getting all contacts for a User
+SELECT u.Name, u.status, u.Email_ID 
+FROM users AS u, contacts AS c 
+WHERE c.Contact_Email_ID = u.Email_ID AND c.Email_ID = ?;
+----------------------------------------------------
+
+--getting information for a contact
+SELECT u.Name, u.status FROM users AS u WHERE u.Email_ID = ?;
