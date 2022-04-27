@@ -52,7 +52,7 @@ INSERT INTO pinned_Message (`User_ID`, `Group_ID`,`Message_ID`) VALUES (?,?,?);
 --When the user is banned from group
 --check admin beforehand
 Use iiitdchat;
-INSERT INTO group_blockedlist (`Group_ID`, `Blocked_Email_ID`) VALUES (new.Group_ID, new.User_ID);
+INSERT INTO group_blockedlist (`Group_ID`, `Blocked_Email_ID`) VALUES (?,?);
 ----------------------------------------------------
 
 --When the user is made admin
@@ -84,15 +84,16 @@ Select Blocked_Email_ID from user_blockedlist where User_Email_ID= ?;
 
 --Unblocking a user for one person
 Use iiitdchat;
-Select Blocked_Email_ID from User_BlockedList where User_Email_ID= ?;
+DELETE FROM user_blockedlist WHERE User_Email_ID= ? and Blocked_Email_ID= ?;
 ----------------------------------------------------
 
 --Unbanning a user for a group
 Use iiitdchat;
-Select Blocked_Email_ID from User_BlockedList where User_Email_ID= ?;
+DELETE FROM group_blockedlist WHERE Group_ID= ? and Blocked_Email_ID= ?;
 ----------------------------------------------------
 
 --adding  a user to a group
 Use iiitdchat;
-Select Blocked_Email_ID from User_BlockedList where User_Email_ID= ?;
+INSERT INTO user_group (`User_ID`, `Group_ID`,`Date_Of_Joining`,`isDeleted`,`Date_Of_leaving`,`isBlocked`) 
+VALUES (?,?,?,'0',null,'0');
 ----------------------------------------------------
