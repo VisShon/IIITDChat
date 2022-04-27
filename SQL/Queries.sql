@@ -108,14 +108,6 @@ DELIMITER ;
 call iiitdchat.getRecents('username');
 ----------------------------------------------------------------
 
-
-
-
-
-
-
-
-
 ----------------------------------------------------------------
 --To fetch all the contacts
 USE `iiitdchat`;
@@ -137,10 +129,43 @@ DELIMITER ;
 call iiitdchat.fetchContacts('user1@gmail.com', 5, 0);
 ----------------------------------------------------------------
 
--- New group is formed
+-- new contact starts a chat
+USE `iiitdchat`;
+DELIMITER $$
+CREATE  PROCEDURE `newChat`(
+IN id1 varchar(100),
+IN id2 varchar(100),)
+BEGIN
+    Declare isB1 int;
+    Declare isB2 int;
+    Select count(*) from user_blockedlist where User_ID = id1 and Blocked_Email_ID=id2 into isB2;
+    Select count(*) from user_blockedlist where User_ID = id2 and Blocked_Email_ID=id1 into isB1;
+    INSERT INTO chat (`Chat_ID`, `User_1_ID`, `User_2_ID`) VALUES ('c1', id1,id2);
+    INSERT INTO user_chat (`Email_ID`, `Chat_ID`, `isBlocked`, `isDeleted`) VALUES (id1,New.Chat_ID,isB1,'0');
+    INSERT INTO user_chat (`Email_ID`, `Chat_ID`, `isBlocked`, `isDeleted`) VALUES (id2,New.Chat_ID,isB2,'0');
+END$$
+DELIMITER ;
 
+call iiitdchat.newChat('user1@gmail.com','user2@gmail.com');
 ----------------------------------------------------------------
 
--- new contact starts a chat
 
+-- fetch blocked email ids
+USE `iiitdchat`;
+DELIMITER $$
+CREATE  PROCEDURE `fetchBlockedEmail`(
+IN id1 varchar(100),
+IN id2 varchar(100),
+In ofs int)
+BEGIN
+    Create TEMPORARY table temp(
+        ID varchar(100)
+    );
+    Insert into temp(ID) Select Blocked_Email_ID from user_blockedlist where User_Email_ID= ?;
+    Select ID,Name,status,Log from temp Inner join users on ID=Email_ID;
+    Drop table temp;
+END$$
+DELIMITER ;
+
+call iiitdchat.fetchBlockedEmail('user1@gmail.com', 5, 0);
 ----------------------------------------------------------------

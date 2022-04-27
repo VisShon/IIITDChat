@@ -68,71 +68,71 @@ INSERT INTO `iiitdChat`.`User_Group` (`User_ID`, `Group_ID`,`Date_Of_Joining`,`i
 INSERT INTO `iiitdChat`.`TaskList` (`Group_ID`, `Deadline`, `isDone`, `Task`, `Task_ID`) VALUES ('g3', '2022-04-24', '1', 'DBMS Final project eval', '1');
 
 
-INSERT INTO `iiitdChat`.`Message` (`Message_ID`, `Sender_ID`, `Reciever_ID`, `Message_Body`, `Sending_Date_Time`, `UpvoteCount`, `isDeletedForEveryone`, `isSent`,`isPicture`,`isPinned`) VALUES ('1', 'user1@gmail.com', 'c1', 'hello', '2022-03-01', '3', '0', '1','0','0');
-INSERT INTO `iiitdChat`.`Message` (`Message_ID`, `Sender_ID`, `Reciever_ID`, `Message_Body`, `Sending_Date_Time`, `UpvoteCount`, `isDeletedForEveryone`, `isSent`,`isPicture`,`isPinned`) VALUES ('2', 'user2@gmail.com', 'c2', 'offo', '2022-03-01', '0', '0', '1','0','0');
-INSERT INTO `iiitdChat`.`Message` (`Message_ID`, `Sender_ID`, `Reciever_ID`, `Message_Body`, `Sending_Date_Time`, `UpvoteCount`, `isDeletedForEveryone`, `isSent`,`isPicture`,`isPinned`) VALUES ('3', 'user3@gmail.com', 'c3', 'hadd hai', '2022-03-01', '0', '1', '1','0','0');
-INSERT INTO `iiitdChat`.`Message` (`Message_ID`, `Sender_ID`, `Reciever_ID`, `Message_Body`, `Sending_Date_Time`, `UpvoteCount`, `isDeletedForEveryone`, `isSent`,`isPicture`,`isPinned`) VALUES ('4', 'user3@gmail.com', 'g1', 'hi', '2022-03-03', '0', '0', '1','0','0');
-INSERT INTO `iiitdChat`.`Message` (`Message_ID`, `Sender_ID`, `Reciever_ID`, `Message_Body`, `Sending_Date_Time`, `UpvoteCount`, `isDeletedForEveryone`, `isSent`,`isPicture`,`isPinned`) VALUES ('5', 'user4@gmail.com', 'g3', 'bhai dekhle', '2022-03-03', '0', '0', '1','0','0');
-INSERT INTO `iiitdChat`.`Message` (`Message_ID`, `Sender_ID`, `Reciever_ID`, `Message_Body`, `Sending_Date_Time`, `UpvoteCount`, `isDeletedForEveryone`, `isSent`,`isPicture`,`isPinned`) VALUES ('6', 'user1@gmail.com', 'g3', 'u will be blocked', '2022-03-03', '0', '1', '1','0','0');
-INSERT INTO `iiitdChat`.`Message` (`Message_ID`, `Sender_ID`, `Reciever_ID`, `Message_Body`, `Sending_Date_Time`, `UpvoteCount`, `isDeletedForEveryone`, `isSent`,`isPicture`,`isPinned`) VALUES ('7', 'user4@gmail.com', 'g3', 'dont care', '2022-03-03', '0', '0', '1','0','0');
-INSERT INTO `iiitdChat`.`Message` (`Message_ID`, `Sender_ID`, `Reciever_ID`, `Message_Body`, `Sending_Date_Time`, `Forward_Msg_ID`, `UpvoteCount`, `isDeletedForEveryone`, `isSent`,`isPicture`,`isPinned`) VALUES ('8', 'user1@gmail.com', 'g2', 'hello', '2022-03-04', '1', '0', '0', '1','0','0');
-INSERT INTO `iiitdChat`.`Message` (`Message_ID`, `Sender_ID`, `Reciever_ID`, `Message_Body`, `Sending_Date_Time`, `UpvoteCount`, `isDeletedForEveryone`, `isSent`,`isPicture`,`isPinned`) VALUES ('9', 'user6@gmail.com', 'g2', 'how are you', '2022-03-04', '0', '0', '1','0','0');
-INSERT INTO `iiitdChat`.`Message` (`Message_ID`, `Sender_ID`, `Reciever_ID`, `Message_Body`, `Sending_Date_Time`, `UpvoteCount`, `isDeletedForEveryone`, `isSent`,`isPicture`,`isPinned`) VALUES ('10', 'user1@gmail.com', 'g2', 'https://images.ctfassets.net/hrltx12pl8hq/4f6DfV5DbqaQUSw0uo0mWi/6fbcf889bdef65c5b92ffee86b13fc44/shutterstock_376532611.jpg?fit=fill&w=800&h=300', '2022-03-04', '1', '0', '1','0','1');
-INSERT INTO `iiitdChat`.`Message` (`Message_ID`, `Sender_ID`, `Reply_Msg_ID`, `Reciever_ID`, `Message_Body`, `Sending_Date_Time`, `isPinned`) VALUES ('11', 'user1@gmail.com', '10', 'g2', 'this is imp', '2022-03-04 00:00:00', '1');
+INSERT INTO `iiitdchat`.`Message` (`Message_ID`, `Sender_ID`, `Reciever_ID`, `Message_Body`, `Sending_Date_Time`, `UpvoteCount`, `isDeletedForEveryone`, `isSent`,`isPicture`,`isPinned`) VALUES ('1', 'user1@gmail.com', 'c1', 'hello', '2022-03-01', '3', '0', '1','0','0');
+INSERT INTO `iiitdchat`.`Message` (`Message_ID`, `Sender_ID`, `Reciever_ID`, `Message_Body`, `Sending_Date_Time`, `UpvoteCount`, `isDeletedForEveryone`, `isSent`,`isPicture`,`isPinned`) VALUES ('2', 'user2@gmail.com', 'c2', 'offo', '2022-03-01', '0', '0', '1','0','0');
+INSERT INTO `iiitdchat`.`Message` (`Message_ID`, `Sender_ID`, `Reciever_ID`, `Message_Body`, `Sending_Date_Time`, `UpvoteCount`, `isDeletedForEveryone`, `isSent`,`isPicture`,`isPinned`) VALUES ('3', 'user3@gmail.com', 'c3', 'hadd hai', '2022-03-01', '0', '1', '1','0','0');
+INSERT INTO `iiitdchat`.`Message` (`Message_ID`, `Sender_ID`, `Reciever_ID`, `Message_Body`, `Sending_Date_Time`, `UpvoteCount`, `isDeletedForEveryone`, `isSent`,`isPicture`,`isPinned`) VALUES ('4', 'user3@gmail.com', 'g1', 'hi', '2022-03-03', '0', '0', '1','0','0');
+INSERT INTO `iiitdchat`.`Message` (`Message_ID`, `Sender_ID`, `Reciever_ID`, `Message_Body`, `Sending_Date_Time`, `UpvoteCount`, `isDeletedForEveryone`, `isSent`,`isPicture`,`isPinned`) VALUES ('5', 'user4@gmail.com', 'g3', 'bhai dekhle', '2022-03-03', '0', '0', '1','0','0');
+INSERT INTO `iiitdchat`.`Message` (`Message_ID`, `Sender_ID`, `Reciever_ID`, `Message_Body`, `Sending_Date_Time`, `UpvoteCount`, `isDeletedForEveryone`, `isSent`,`isPicture`,`isPinned`) VALUES ('6', 'user1@gmail.com', 'g3', 'u will be blocked', '2022-03-03', '0', '1', '1','0','0');
+INSERT INTO `iiitdchat`.`Message` (`Message_ID`, `Sender_ID`, `Reciever_ID`, `Message_Body`, `Sending_Date_Time`, `UpvoteCount`, `isDeletedForEveryone`, `isSent`,`isPicture`,`isPinned`) VALUES ('7', 'user4@gmail.com', 'g3', 'dont care', '2022-03-03', '0', '0', '1','0','0');
+INSERT INTO `iiitdchat`.`Message` (`Message_ID`, `Sender_ID`, `Reciever_ID`, `Message_Body`, `Sending_Date_Time`, `Forward_Msg_ID`, `UpvoteCount`, `isDeletedForEveryone`, `isSent`,`isPicture`,`isPinned`) VALUES ('8', 'user1@gmail.com', 'g2', 'hello', '2022-03-04', '1', '0', '0', '1','0','0');
+INSERT INTO `iiitdchat`.`Message` (`Message_ID`, `Sender_ID`, `Reciever_ID`, `Message_Body`, `Sending_Date_Time`, `UpvoteCount`, `isDeletedForEveryone`, `isSent`,`isPicture`,`isPinned`) VALUES ('9', 'user6@gmail.com', 'g2', 'how are you', '2022-03-04', '0', '0', '1','0','0');
+INSERT INTO `iiitdchat`.`Message` (`Message_ID`, `Sender_ID`, `Reciever_ID`, `Message_Body`, `Sending_Date_Time`, `UpvoteCount`, `isDeletedForEveryone`, `isSent`,`isPicture`,`isPinned`) VALUES ('10', 'user1@gmail.com', 'g2', 'https://images.ctfassets.net/hrltx12pl8hq/4f6DfV5DbqaQUSw0uo0mWi/6fbcf889bdef65c5b92ffee86b13fc44/shutterstock_376532611.jpg?fit=fill&w=800&h=300', '2022-03-04', '1', '0', '1','0','1');
+INSERT INTO `iiitdchat`.`Message` (`Message_ID`, `Sender_ID`, `Reply_Msg_ID`, `Reciever_ID`, `Message_Body`, `Sending_Date_Time`, `isPinned`) VALUES ('11', 'user1@gmail.com', '10', 'g2', 'this is imp', '2022-03-04 00:00:00', '1');
 
-INSERT INTO `iiitdChat`.`Pinned_Message` (`User_ID`, `Group_ID`,`Message_ID`) VALUES ('user1@gmail.com','g3','10');
+INSERT INTO `iiitdchat`.`Pinned_Message` (`User_ID`, `Group_ID`,`Message_ID`) VALUES ('user1@gmail.com','g3','10');
 
-INSERT INTO `iiitdChat`.`User_BlockedList` (`User_Email_ID`, `Blocked_Email_ID`) VALUES ('user6@gmail.com','user3@gmail.com');
+INSERT INTO `iiitdchat`.`User_BlockedList` (`User_Email_ID`, `Blocked_Email_ID`) VALUES ('user6@gmail.com','user3@gmail.com');
 
-INSERT INTO `iiitdChat`.`User_Chat` (`Email_ID`, `Chat_ID`, `isBlocked`, `isDeleted`) VALUES ('user1@gmail.com','c1','0','0');
-INSERT INTO `iiitdChat`.`User_Chat` (`Email_ID`, `Chat_ID`, `isBlocked`, `isDeleted`) VALUES ('user5@gmail.com','c1','0','0');
-INSERT INTO `iiitdChat`.`User_Chat` (`Email_ID`, `Chat_ID`, `isBlocked`, `isDeleted`) VALUES ('user2@gmail.com','c2','0','0');
-INSERT INTO `iiitdChat`.`User_Chat` (`Email_ID`, `Chat_ID`, `isBlocked`, `isDeleted`) VALUES ('user4@gmail.com','c2','0','0');
-INSERT INTO `iiitdChat`.`User_Chat` (`Email_ID`, `Chat_ID`, `isBlocked`, `isDeleted`) VALUES ('user3@gmail.com','c3','1','0');
-INSERT INTO `iiitdChat`.`User_Chat` (`Email_ID`, `Chat_ID`, `isBlocked`, `isDeleted`) VALUES ('user6@gmail.com','c3','0','0');
+INSERT INTO `iiitdchat`.`User_Chat` (`Email_ID`, `Chat_ID`, `isBlocked`, `isDeleted`) VALUES ('user1@gmail.com','c1','0','0');
+INSERT INTO `iiitdchat`.`User_Chat` (`Email_ID`, `Chat_ID`, `isBlocked`, `isDeleted`) VALUES ('user5@gmail.com','c1','0','0');
+INSERT INTO `iiitdchat`.`User_Chat` (`Email_ID`, `Chat_ID`, `isBlocked`, `isDeleted`) VALUES ('user2@gmail.com','c2','0','0');
+INSERT INTO `iiitdchat`.`User_Chat` (`Email_ID`, `Chat_ID`, `isBlocked`, `isDeleted`) VALUES ('user4@gmail.com','c2','0','0');
+INSERT INTO `iiitdchat`.`User_Chat` (`Email_ID`, `Chat_ID`, `isBlocked`, `isDeleted`) VALUES ('user3@gmail.com','c3','1','0');
+INSERT INTO `iiitdchat`.`User_Chat` (`Email_ID`, `Chat_ID`, `isBlocked`, `isDeleted`) VALUES ('user6@gmail.com','c3','0','0');
 
 
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user1@gmail.com','1','0','0','1','1');
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user2@gmail.com','1','0','0','1','1');
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user3@gmail.com','1','0','0','1','1');
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user5@gmail.com','1','0','0','0','0');
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user4@gmail.com','1','0','0','0','0');
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user6@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user1@gmail.com','1','0','0','1','1');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user2@gmail.com','1','0','0','1','1');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user3@gmail.com','1','0','0','1','1');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user5@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user4@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user6@gmail.com','1','0','0','0','0');
 
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user3@gmail.com','1','0','0','0','0');
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user5@gmail.com','1','0','0','0','0');
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user6@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user3@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user5@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user6@gmail.com','1','0','0','0','0');
 
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user1@gmail.com','1','0','0','0','0');
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user2@gmail.com','1','0','0','0','0');
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user3@gmail.com','1','0','0','0','0');
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user4@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user1@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user2@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user3@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user4@gmail.com','1','0','0','0','0');
 
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user1@gmail.com','1','0','0','0','0');
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user2@gmail.com','1','0','0','0','0');
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user3@gmail.com','1','0','0','0','0');
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user4@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user1@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user2@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user3@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user4@gmail.com','1','0','0','0','0');
 
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user1@gmail.com','1','0','0','0','0');
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user2@gmail.com','1','0','0','0','0');
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user3@gmail.com','1','0','0','0','0');
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user4@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user1@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user2@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user3@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user4@gmail.com','1','0','0','0','0');
 
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user1@gmail.com','1','0','0','0','0');
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user6@gmail.com','1','0','0','0','0');
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user7@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user1@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user6@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user7@gmail.com','1','0','0','0','0');
 
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user1@gmail.com','1','0','0','0','0');
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user6@gmail.com','1','0','0','0','0');
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user7@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user1@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user6@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user7@gmail.com','1','0','0','0','0');
 
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user1@gmail.com','1','0','0','0','0');
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user6@gmail.com','1','0','0','0','0');
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user7@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user1@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user6@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user7@gmail.com','1','0','0','0','0');
 
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user1@gmail.com','1','0','0','0','0');
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user6@gmail.com','1','0','0','0','0');
-INSERT INTO `iiitdChat`.`User_Message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user7@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user1@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user6@gmail.com','1','0','0','0','0');
+INSERT INTO `iiitdchat`.`user_message` (`Email_ID`, `Message_ID`,`isDeleted`,`isStarred`,`isSeen`,`isRecieved`) VALUES ('user7@gmail.com','1','0','0','0','0');
 <<<<<<< HEAD
 
 INSERT INTO `iiitdchat`.`Teacher` (`Teacher_Email_ID`, `Teacher_Name`) VALUES ('faizanmd@gmail.com', 'Md Faizan');
