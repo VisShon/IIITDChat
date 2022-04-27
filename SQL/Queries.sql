@@ -138,7 +138,21 @@ call iiitdchat.fetchContacts('user1@gmail.com', 5, 0);
 ----------------------------------------------------------------
 
 -- New group is formed
-
+USE `iiitdchat`;
+DELIMITER $$
+CREATE  PROCEDURE `newGrp`(
+IN id varchar(100),
+IN lim int,
+In ofs int)
+BEGIN
+    CREATE TEMPORARY table tempC(
+        CID varchar(100)
+    );
+    Insert into tempC(CID) Select Contact_Email_ID From Contacts where Email_ID = id;
+    Select Email_ID, Status, Log from Users Inner join tempC on Email_ID = CID Limit lim offset ofs;
+    Drop table tempC;
+END$$
+DELIMITER ;
 ----------------------------------------------------------------
 
 -- new contact starts a chat
