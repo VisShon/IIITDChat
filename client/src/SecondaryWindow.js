@@ -9,8 +9,12 @@ export default function SecondaryWindow({sectionSetter, section, item, selectedC
     const [name, setName] = useState("Recipient Name");
     const [textList, setTextList] = useState([]);
     const [msgContent, setMsgContent] = useState("");
+
     const [contactName, setContactName] = useState("Contact Name");
     const [contactStatus, setContactStatus] = useState("status");
+
+    const [blockedName, setBlockedName] = useState("Contact Name");
+    const [blockedStatus, setBlockedStatus] = useState("status");
 
     useEffect(() => {
         // sending data in URL param and catching it in backend using ':' 
@@ -32,24 +36,22 @@ export default function SecondaryWindow({sectionSetter, section, item, selectedC
         });
 
         // get info on the selected contact
-        axios.get(`http://localhost:3001/api/getContactInfo/${item}`, {
+        axios.get(`http://localhost:3001/api/getContactInfo/${selectedContact}`, {
             headers: { Authorization: `bearer ${sessionStorage['user-token']}`}
         }).then((res) => {
             const itemInfo = res.data;
-            setContactName(itemInfo[0].Name )
-            setLog(itemInfo[0].Login =="Invalid Date" || itemInfo[0].Log =="null"? "Null":itemInfo[0].Login.toDateString() + ' ' + itemInfo[0].Login.toLocaleTimeString());
+            setContactName(itemInfo[0].Name)
             console.log("iteminfo=", itemInfo[0]);
         }).catch(error => {
             console.error(error);
         });
 
         // get info on the selected blockedContact
-        axios.get(`http://localhost:3001/api/getBlockedInfo/${item}`, {
+        axios.get(`http://localhost:3001/api/getBlockedInfo/${selectedBlockedContact}`, {
             headers: { Authorization: `bearer ${sessionStorage['user-token']}`}
         }).then((res) => {
             const itemInfo = res.data;
-            setName(itemInfo[0].Name || itemInfo[0].GName )
-            setLog(itemInfo[0].Login =="Invalid Date" || itemInfo[0].Log =="null"? "Null":itemInfo[0].Login.toDateString() + ' ' + itemInfo[0].Login.toLocaleTimeString());
+            setBlockedName(itemInfo[0].Name)
             console.log("iteminfo=", itemInfo[0]);
         }).catch(error => {
             console.error(error);
