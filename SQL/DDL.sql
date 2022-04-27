@@ -126,5 +126,5 @@ CREATE TABLE Contacts (
 CREATE TABLE Teacher (
   Teacher_Email_ID varchar(100),
   Teacher_Name varchar(100),
-  primary key(Teacher_Email_ID)
+  PRIMARY KEY(Teacher_Email_ID)
 );
