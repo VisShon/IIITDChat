@@ -1,9 +1,9 @@
 DELIMITER $$
 CREATE
-    TRIGGER my_trig AFTER INSERT
-    ON User_BlockedList
+    TRIGGER TrigUserBlock AFTER INSERT
+    ON user_blockedlist
     FOR EACH ROW
     BEGIN
-        Update User_Chat Set isBlocked= 1 where User_ID = new.User_Email_ID;
+        Update user_chat Set isBlocked= 1 where Email_ID = new.Blocked_Email_ID;
     END$$
-DELIMITER;
+DELIMITER ;
