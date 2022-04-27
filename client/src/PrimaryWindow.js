@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ChatContainer from "./ChatContainer";
 import ContactContainer from "./ContactContainer";
+import BlockedContainer from "./BlockedContainer";
 
-export default function PrimaryWindow({sectionSetter, section, setItem, item}){
+export default function PrimaryWindow({sectionSetter, section, setItem, item, selectedContact, setSelectedContact, selectedBlockedContact, setSelectedBlockedContact}){
     const initialChat = [{
         Reciever_ID: "1234",
-        Message_Body: "hello amongus sussy baka fortnite victry royal",
+        Message_Body: "hello amongus sussy baka fortnite victry royale",
         Sending_Date_Time: new Date(),
-        Name: "Madarchod Retard"
+        Name: "Hehehehaw"
     }];
     const initialChat2 = initialChat.concat(initialChat).concat(initialChat).concat(initialChat);
     const [chats, setChats] = useState(initialChat2.concat(initialChat2));
@@ -66,11 +67,11 @@ export default function PrimaryWindow({sectionSetter, section, setItem, item}){
     }
     function contactMapper(contact, index){
         // return contactcontainer mapped array
-        return <ContactContainer key={index} name={contact.Name} status={contact.status} />;
+        return <ContactContainer key={index} name={contact.Name} status={contact.status} ID={contact.Email_ID} setSelectedContact={setSelectedContact} selectedContact={selectedContact}/>;
     }
     function blockedMapper(contact, index){
         // return blockedcontainer mapped array
-        return <ContactContainer key={index} name={contact.Name} status={contact.status} />;
+        return <BlockedContainer key={index} name={contact.Name} status={contact.status} ID={contact.Email_ID} setSelectedBlockedContact={setSelectedBlockedContact} selectedBlockedContact={selectedBlockedContact}/>;
     }
     function cards(section, chats, contacts, blockedContacts){
         switch(section){
@@ -87,9 +88,9 @@ export default function PrimaryWindow({sectionSetter, section, setItem, item}){
         <>
         <div id="primaryWindowWrapper">
             <div id="topNavBar">
-                <button className={section=="chats"?"sectionButton whiteButton":"sectionButton"} id="chatsBtn" onClick={() => {sectionSetter("chats")}}>Chats</button>
-                <button className={section=="contacts"?"sectionButton whiteButton":"sectionButton"}  id="contactsBtn" onClick={() => {sectionSetter("contacts")}}>Contacts</button>
-                <button className={section=="blocked"?"sectionButton whiteButton":"sectionButton"}  id="blockedBtn" onClick={() => {sectionSetter("blocked")}}>Blocked</button>
+                <button className={section=="chats"?"sectionButton whiteButton":"sectionButton"} id="chatsBtn" onClick={() => {sectionSetter("chats");setItem("null")}}>Chats</button>
+                <button className={section=="contacts"?"sectionButton whiteButton":"sectionButton"}  id="contactsBtn" onClick={() => {sectionSetter("contacts");setItem("null")}}>Contacts</button>
+                <button className={section=="blocked"?"sectionButton whiteButton":"sectionButton"}  id="blockedBtn" onClick={() => {sectionSetter("blocked");setItem("null")}}>Blocked</button>
             </div>
 
             <div id="primaryWindow">

@@ -1,0 +1,44 @@
+.textContainer{
+    margin-bottom: 0.5rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    background-color: #CBFEFB;
+
+    display: flex;
+    flex-direction: column;
+    /* justify-content: left; */
+    padding:0.5rem;
+    border-radius: 10px;
+}
+.textContainer:hover{
+    background-color: #8fe4df;
+}
+.textBody{
+    margin: 0rem 0.5rem 0rem 0.5rem;
+
+    font-family: "poppins";
+    font-size: 12px;
+
+    color: black;
+}
+.date{
+    margin: 0rem 0.5rem 0rem 0.5rem;
+    
+    font-family: "poppins";
+    font-size: 12px;
+    font-weight: 400;
+
+    color: #787878;
+}
+.senderName{
+    margin: 0rem 0.5rem 0rem 0.5rem;
+
+    font-family: "poppins";
+    font-size: 14px;
+    font-weight: 600;
+
+    color: black;
+}
+.userTextContainer{
+    justify-content: right;
+}

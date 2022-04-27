@@ -90,7 +90,7 @@ app.get('/api/getItemInfo/:item', function(req, res) {
   const { item } = req.params;
   const recID = item;
 
-  console.log(Name, Email_ID, recID);
+  console.log(6, Name, Email_ID, recID);
   if(Name && Email_ID && recID) {
     if(recID.startsWith("c")){
       db.query('SELECT u.Name, u.Log FROM users AS u, chat AS c WHERE c.Chat_ID = ? AND c.User_2_ID = u.Email_ID',
@@ -112,38 +112,25 @@ app.get('/api/getItemInfo/:item', function(req, res) {
   }
 });
 
-//need the userID of both the users one in the decoded token and one in the request.
-//if it is a group we need the group id for fething the messages.
-//not handling the user messages only using the messages.
-// app.post('/api/getMessages', function(req, res) {
-//   let decodedToken = checkAuthFromRequest(req, res);
-//   if(!decodedToken) {return}
-//   const{userID,username} = decodedToken;
-//   if(userID && username) {
-//     let userID2 = req.body.userID2
-//     if(identity) {
-//       db.query('call iiitdchat.fetchC(?,?)',
-//       [userID,userID2],
-//       function(err, result,fields) {
-//         if(err) throw err;
-//         respond.send(result);
-//       });
-//     }
-//     else{
-//       let groupID = req.body.groupID
-//       db.query('call iiitdchat.fetchg(?)',
-//       [groupID],
-//       function(err, result,fields) {
-//         if(err) throw err;
-//         respond.send(result);
-//       });
-//     }
-//   }
-//   else {
-//     response.send('Error 404');
-//     response.end();
-//   }
-// });
+app.get('/api/getMessages/:item', function(req, res) {
+  let decodedToken = checkAuthFromRequest(req, res);
+  if(!decodedToken) {return}
+  const{Name,Email_ID} = decodedToken;
+  const { item } = req.params;
+  const recID = item;
+
+  console.log("7",Name, Email_ID, recID);
+  if(Name && Email_ID && recID) {
+    db.query('SELECT u.Name, u.Email_ID, m.Message_ID, m.Sender_ID, m.Reply_Msg_ID, m.Message_Body, m.Sending_Date_Time, m.Forward_Msg_ID, m.UpvoteCount, m.isDeletedForEveryone, m.isPicture FROM users AS u, message AS m WHERE m.Reciever_ID = ? AND u.Email_ID = m.Sender_ID',
+    [recID], function(err, result,fields) {
+      if(err) throw err;
+      res.json(result);
+    });
+  }
+  else {
+    res.status(400).send('Missing name, email or receiver id');
+  }
+});
 
 app.get("/api/getAllContacts", (req, res)=>{
   let decodedToken = checkAuthFromRequest(req, res);
@@ -161,7 +148,6 @@ app.get("/api/getAllContacts", (req, res)=>{
   else {
     res.status(400).send('Missing name, email or receiver id');
   }
-  //fetching contacts
 })
 
 app.get("/api/getBlockedList", (req, res)=>{
@@ -180,27 +166,7 @@ app.get("/api/getBlockedList", (req, res)=>{
   else {
     res.status(400).send('Missing name, email or receiver id');
   }
-  //fetch blockedlist
 })
-
-//need the message info for ending the messages.
-// app.post('/api/getLog', function(req, res) {
-//   let decodedToken = checkAuthFromRequest(req, res);
-//   if(!decodedToken) {return}
-//   const{Name, Email} = decodedToken;
-//   if(Name && Email) {
-//     db.query('Select Name, Log from user where Name = ?',
-//     [username],
-//     function(err, result,fields) {
-//       if(err) throw err;
-//       respond.send(result);
-//     });
-//   }
-//   else {
-//     response.send('Error 404');
-//     response.end();
-//   }
-// });
 
 app.get("/api/getProfileName", (req, res) => {
   let decodedToken = checkAuthFromRequest(req, res);
@@ -215,6 +181,25 @@ app.get("/api/getProfileName", (req, res) => {
     res.send('Error 404');
     res.end();
   }
+})
+
+app.post("/api/sendMessage", (req, res) => {
+  const msgInfo = req.body;
+  let decodedToken = checkAuthFromRequest(req, res);
+  if(!decodedToken) {return}
+  const {Name, Email_ID} = decodedToken;
+
+  if(Name && Email_ID) {
+    db.query("call iiitdchat.SendMsg(?, null, ?, ?, ?, null, 0, 0, 1, 0, 0)",
+    [Email_ID, msgInfo.recieverID, msgInfo.messageBody, msgInfo.sentDate], function(err, result,fields) {
+      if(err) throw err;
+        res.status(200).end();
+    });
+  }
+  else {
+    res.status(400).send('Missing name, email or receiver id');
+  }
+
 })
 
 function checkAuthFromRequest(req, res) {

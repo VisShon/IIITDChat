@@ -8,7 +8,10 @@ import SecondaryWindow from './SecondaryWindow';
 function App(props) {
   const [profileName, setProfileName] = useState("Profile Name");
   const [section, setSection] = useState("chats");
+  
   const [selectedItem, setSelectedItem] = useState("null");
+  const [selectedContact, setSelectedContact] = useState("null");
+  const [selectedBlockedContact, setSelectedBlockedContact] = useState("null");
 
   useEffect( () => {
     axios.get("http://localhost:3001/api/getProfileName", {
@@ -28,8 +31,8 @@ function App(props) {
     <>
     <div id="homeGrid">
       <div id="profileBar">{profileName}</div>
-      <PrimaryWindow sectionSetter={setSection} section={section} setItem={setSelectedItem} item={selectedItem}/>
-      <SecondaryWindow sectionSetter={setSection} section={section} item={selectedItem}/>
+      <PrimaryWindow sectionSetter={setSection} section={section} setItem={setSelectedItem} item={selectedItem} selectedContact={selectedContact} setSelectedContact={setSelectedContact} selectedBlockedContact={selectedBlockedContact} setSelectedBlockedContact={setSelectedBlockedContact}/>
+      <SecondaryWindow sectionSetter={setSection} section={section} item={selectedItem}  selectedContact={selectedContact} setSelectedContact={setSelectedContact} selectedBlockedContact={selectedBlockedContact} setSelectedBlockedContact={setSelectedBlockedContact}/>
     </div>
     </>
   );
