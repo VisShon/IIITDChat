@@ -1,7 +1,6 @@
 import React from 'react'; 
 import ReactDOM from 'react-dom';
 
-import { render } from "react-dom";
 import {
   BrowserRouter,
   Routes,
@@ -16,9 +15,7 @@ import App from './App';
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/contacts" element={<App section="contacts"/>} />
-      <Route path="/blocked" element={<App section="blocked"/>} />
+      <Route path="/" element={<App secttion="chats"/>} />
       <Route path="/login" element={<Login />} />
     </Routes>
   </BrowserRouter>,

@@ -14,5 +14,10 @@
   grid-row: 2/3;
   grid-column: 2/3;
 
-  padding-left: 40px;
+
+  font-family: "poppins";
+  font-size: 14px;
+  font-weight: 600;
+
+  padding-left: 36px;
 }
