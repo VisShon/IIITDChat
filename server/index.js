@@ -63,7 +63,7 @@ app.post('/auth', function(request, response) {
             db.query("UPDATE users SET Log = ? WHERE Email_ID = ?", [date, Email_ID], function(error, results, fields) {
               if (error) throw error;
               else {
-                response.send("Log updated for "+Email_ID);
+                response.send("Log updated for "+Email_ID).end();
               }
             })
           } else {
@@ -82,7 +82,9 @@ app.get('/api/getRecentChats', function(req, res) {
     let decodedToken = checkAuthFromRequest(req, res);
     if(!decodedToken) return;
 
-    const{Name, Email} = decodedToken;
+    const{Name, Email_ID} = decodedToken;
+
+    console.log("/api/getRecentChats", Name, Email_ID)
     if(Name) {
       db.query('call iiitdchat.getRecents(?)',
       [Name],
@@ -93,8 +95,7 @@ app.get('/api/getRecentChats', function(req, res) {
       });
     }
     else {
-      res.send('Error 404');
-      res.end();
+      res.send(404).end();
     }
 });
 
@@ -106,7 +107,7 @@ app.get('/api/getItemInfo/:item', function(req, res) {
   const { item } = req.params;
   const recID = item;
 
-  console.log(6, Name, Email_ID, recID);
+  console.log("/api/getItemInfo/:item", Name, Email_ID, recID);
   if(Name && Email_ID && recID) {
     if(recID.startsWith("c")){
       db.query('SELECT u.Name, u.Log FROM users AS u, chat AS c WHERE c.Chat_ID = ? AND c.User_2_ID = u.Email_ID',
@@ -124,7 +125,7 @@ app.get('/api/getItemInfo/:item', function(req, res) {
     }
   }
   else {
-    res.status(400).send('Missing name, email or receiver id');
+    return res.status(400).send('Missing name, email or receiver id');
   }
 });
 
@@ -135,16 +136,16 @@ app.get("/api/getContactInfo/:item", (req, res) => {
   const { item } = req.params;
   const contactEmail = item;
 
-  console.log(8, Name, Email_ID, contactEmail);
+  console.log("/api/getContactInfo/:item", Name, Email_ID, contactEmail);
   if(Name && Email_ID && contactEmail) {
-    db.query('SELECT u.Name, u.status FROM users AS u WHERE u.Email_ID = ?',
+    db.query('SELECT *FROM users WHERE Email_ID = ?',
     [contactEmail], function(err, result,fields) {
       if(err) throw err;
       res.json(result);
     });
   }
   else {
-    res.status(400).send('Missing name, email or contact email');
+    return res.status(400).send('Missing name, email or contact email');
   }
 })
 
@@ -155,16 +156,16 @@ app.get("/api/getBlockedInfo/:item", (req, res) => {
   const { item } = req.params;
   const blockedEmail = item;
 
-  console.log(9, Name, Email_ID, blockedEmail);
+  console.log("/api/getBlockedInfo/:item", Name, Email_ID, blockedEmail);
   if(Name && Email_ID && blockedEmail) {
-    db.query('SELECT u.Name, u.status FROM users AS u WHERE u.Email_ID = ?',
+    db.query('SELECT * FROM users WHERE Email_ID = ?',
     [blockedEmail], function(err, result,fields) {
       if(err) throw err;
       res.json(result);
     });
   }
   else {
-    res.status(400).send('Missing name, email or contact email');
+    return res.status(400).send('Missing name, email or contact email');
   }
 })
 
@@ -175,16 +176,16 @@ app.get('/api/getMessages/:item', function(req, res) {
   const { item } = req.params;
   const recID = item;
 
-  console.log("7",Name, Email_ID, recID);
+  console.log("/api/getMessages/:item",Name, Email_ID, recID);
   if(Name && Email_ID && recID) {
-    db.query('SELECT u.Name, u.Email_ID, m.Message_ID, m.Sender_ID, m.Reply_Msg_ID, m.Message_Body, m.Sending_Date_Time, m.Forward_Msg_ID, m.UpvoteCount, m.isDeletedForEveryone, m.isPicture FROM users AS u, message AS m WHERE m.Reciever_ID = ? AND u.Email_ID = m.Sender_ID',
+    db.query('SELECT u.Name, u.Email_ID, m.Message_ID, m.Sender_ID, m.Reply_Msg_ID, m.Message_Body, m.Sending_Date_Time, m.Forward_Msg_ID, m.UpvoteCount, m.isDeletedForEveryone, m.isPicture FROM users AS u, message AS m WHERE m.Reciever_ID = ? AND u.Email_ID = m.Sender_ID AND m.isDeletedForEveryone = 0',
     [recID], function(err, result,fields) {
       if(err) throw err;
       res.json(result);
     });
   }
   else {
-    res.status(400).send('Missing name, email or receiver id');
+    return res.status(400).send('Missing name, email or receiver id');
   }
 });
 
@@ -193,7 +194,7 @@ app.get("/api/getAllContacts", (req, res)=>{
   if(!decodedToken) {return}
   const{Name ,Email_ID} = decodedToken;
 
-  console.log(Name, Email_ID);
+  console.log("/api/getAllContacts", Name, Email_ID);
   if(Name && Email_ID) {
     db.query('SELECT u.Name, u.status, u.Email_ID FROM users AS u, contacts AS c WHERE c.Contact_Email_ID = u.Email_ID AND c.Email_ID = ?',
     [Email_ID], function(err, result,fields) {
@@ -211,7 +212,7 @@ app.get("/api/getBlockedList", (req, res)=>{
   if(!decodedToken) {return}
   const{Name, Email_ID} = decodedToken;
 
-  console.log(Name, Email_ID);
+  console.log("/api/getBlockedList", Name, Email_ID);
   if(Name && Email_ID) {
     db.query('SELECT u.Name, u.status, u.Email_ID FROM users AS u, user_blockedlist AS c WHERE c.Blocked_Email_ID = u.Email_ID AND c.User_Email_ID = ?',
     [Email_ID], function(err, result,fields) {
@@ -220,15 +221,16 @@ app.get("/api/getBlockedList", (req, res)=>{
     });
   }
   else {
-    res.status(400).send('Missing name, email or receiver id');
+    return res.status(400).send('Missing name, email or receiver id');
   }
 })
 
+// extracting profile name
 app.get("/api/getProfileName", (req, res) => {
   let decodedToken = checkAuthFromRequest(req, res);
   if(!decodedToken) {return}
   const {Name, Email_ID} = decodedToken;
-  console.log(decodedToken);
+  console.log("/api/getProfileName", decodedToken);
 
   if(Name && Email_ID) {
     res.json(Name);
@@ -246,14 +248,14 @@ app.post("/api/sendMessage", (req, res) => {
   const {Name, Email_ID} = decodedToken;
 
   if(Name && Email_ID) {
-    db.query("call iiitdchat.SendMsg(?, null, ?, ?, ?, null, 0, 0, 1, 0, 0)",
-    [Email_ID, msgInfo.recieverID, msgInfo.messageBody, msgInfo.sentDate], function(err, result,fields) {
+    db.query("call iiitdchat.SendMsg(?, null, ?, ?, ?, null, 0, 0, 1, ?, 0)",
+    [Email_ID, msgInfo.recieverID, msgInfo.messageBody, msgInfo.sentDate, msgInfo.isPicture=="img"?1:0], function(err, result,fields) {
       if(err) throw err;
         res.status(200).end();
     });
   }
   else {
-    res.status(400).send('Missing name, email or receiver id');
+    return res.status(400).send('Missing name, email or receiver id');
   }
 
 })
