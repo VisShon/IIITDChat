@@ -51,11 +51,27 @@ app.post('/auth', function(request, response) {
             const {Name, Email_ID} = user;
             const mytoken = jwt.sign({Name, Email_ID}, process.env.JWT_SECRET);
             response.json(mytoken);
+
+            var date = new Date();
+            date = date.getUTCFullYear() + '-' +
+                ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' +
+                ('00' + date.getUTCDate()).slice(-2) + ' ' + 
+                ('00' + date.getUTCHours()).slice(-2) + ':' + 
+                ('00' + date.getUTCMinutes()).slice(-2) + ':' + 
+                ('00' + date.getUTCSeconds()).slice(-2);
+
+            db.query("UPDATE users SET Log = ? WHERE Email_ID = ?", [date, Email_ID], function(error, results, fields) {
+              if (error) throw error;
+              else {
+                response.send("Log updated for "+Email_ID);
+              }
+            })
           } else {
             response.send('Incorrect Username and/or Password!');
           }			
           response.end();
       });
+    
 	} else {
 		response.send('Please enter Username and Password!');
 		response.end();
@@ -116,11 +132,11 @@ app.get("/api/getContactInfo/:item", (req, res) => {
   let decodedToken = checkAuthFromRequest(req, res);
   if(!decodedToken) {return}
   const{Name ,Email_ID} = decodedToken;
-  const { selectedContact } = req.params;
-  const contactEmail = selectedContact;
+  const { item } = req.params;
+  const contactEmail = item;
 
   console.log(8, Name, Email_ID, contactEmail);
-  if(Name && Email_ID && recID) {
+  if(Name && Email_ID && contactEmail) {
     db.query('SELECT u.Name, u.status FROM users AS u WHERE u.Email_ID = ?',
     [contactEmail], function(err, result,fields) {
       if(err) throw err;
@@ -137,6 +153,19 @@ app.get("/api/getBlockedInfo/:item", (req, res) => {
   if(!decodedToken) {return}
   const{Name ,Email_ID} = decodedToken;
   const { item } = req.params;
+  const blockedEmail = item;
+
+  console.log(9, Name, Email_ID, blockedEmail);
+  if(Name && Email_ID && blockedEmail) {
+    db.query('SELECT u.Name, u.status FROM users AS u WHERE u.Email_ID = ?',
+    [blockedEmail], function(err, result,fields) {
+      if(err) throw err;
+      res.json(result);
+    });
+  }
+  else {
+    res.status(400).send('Missing name, email or contact email');
+  }
 })
 
 app.get('/api/getMessages/:item', function(req, res) {
@@ -239,7 +268,7 @@ function checkAuthFromRequest(req, res) {
 
   const token = authHeader.substring(7);
 
-  if (!jwt.verify(token, process.env.JWT_SECRET)) {
+  if (!(token && jwt.verify(token, process.env.JWT_SECRET))) {
     res.status(401).json({message: "Unauthorized"});
     return null;
   }

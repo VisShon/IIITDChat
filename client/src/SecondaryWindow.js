@@ -16,9 +16,10 @@ export default function SecondaryWindow({sectionSetter, section, item, selectedC
     const [blockedName, setBlockedName] = useState("Contact Name");
     const [blockedStatus, setBlockedStatus] = useState("status");
 
-    useEffect(() => {
+    function fetchData() {
         // sending data in URL param and catching it in backend using ':' 
         // get info on the selected chat
+        console.log("Fetching data", new Date().toLocaleTimeString());
         axios.get(`http://localhost:3001/api/getItemInfo/${item}`, {
             headers: { Authorization: `bearer ${sessionStorage['user-token']}`}
         }).then((res) => {
@@ -51,6 +52,7 @@ export default function SecondaryWindow({sectionSetter, section, item, selectedC
             headers: { Authorization: `bearer ${sessionStorage['user-token']}`}
         }).then((res) => {
             const itemInfo = res.data;
+            console.log("goddamit", itemInfo, "fuck u");
             setBlockedName(itemInfo[0].Name)
             console.log("iteminfo=", itemInfo[0]);
         }).catch(error => {
@@ -75,7 +77,36 @@ export default function SecondaryWindow({sectionSetter, section, item, selectedC
             });
         }
     }
-    ,[item]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            console.log("fetched message")
+            if(item!="null"){
+                // fetching all messages of the selected item
+                axios.get(`http://localhost:3001/api/getMessages/${item}`, {
+                    headers: { Authorization: `bearer ${sessionStorage['user-token']}`}
+                }).then((res) => {
+                    console.log(res.data);
+                    const itemInfo = res.data.map(msg => {
+                        return {
+                            ...msg,
+                            dateTime: new Date(msg.Sending_Date_Time)
+                        }
+                    })
+                    setTextList(itemInfo);
+                    console.log("messages =", itemInfo);
+                }).catch(error => {
+                    console.error(error);
+                });
+            }
+        }, 5000);
+        console.log(interval, 'interval');
+    }
+    ,[]);
+
+    useEffect(() => {
+        fetchData();
+    }, [item]);
 
     function sendMsg(){
         const messageBody = msgContent;
