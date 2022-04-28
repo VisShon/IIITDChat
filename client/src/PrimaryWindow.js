@@ -9,9 +9,9 @@ import BlockedContainer from "./BlockedContainer";
 export default function PrimaryWindow({sectionSetter, section, setItem, item, selectedContact, setSelectedContact, selectedBlockedContact, setSelectedBlockedContact}){
     const initialChat = [{
         Reciever_ID: "1234",
-        Message_Body: "hello amongus sussy baka fortnite victry royale",
+        Message_Body: "hello this is sample placeholder text for testing purposes",
         Sending_Date_Time: new Date(),
-        Name: "Hehehehaw"
+        Name: "Conversation Name"
     }];
     const initialChat2 = initialChat.concat(initialChat).concat(initialChat).concat(initialChat);
     const [chats, setChats] = useState(initialChat2.concat(initialChat2));
@@ -33,15 +33,17 @@ export default function PrimaryWindow({sectionSetter, section, setItem, item, se
                     });
                     console.log("recentChats", receivedChats);
 
-                    const uniqueChatMap = {};
+                    const uniqueChatMap = [];
                     const recIDList = [];
-                    receivedChats.forEach(chat => {
-                        if(!recIDList.includes(chat.Reciever_ID)){
-                            recIDList.push(chat.Reciever_ID);
+                    for(let i in receivedChats){
+                        console.log()
+                        if(!recIDList.includes(receivedChats[i].Reciever_ID)){
+                            recIDList.push(receivedChats[i].Reciever_ID);
+                            uniqueChatMap.push(receivedChats[i]);
                         }
-                    });
-                    receivedChats.
-                    setChats(Object.values(uniqueChatMap));
+                    }
+
+                    setChats(uniqueChatMap);
 
                     console.log("recentChatsAfter", uniqueChatMap);
                 }).catch(error => {

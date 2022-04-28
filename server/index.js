@@ -63,7 +63,7 @@ app.post('/auth', function(request, response) {
             db.query("UPDATE users SET Log = ? WHERE Email_ID = ?", [date, Email_ID], function(error, results, fields) {
               if (error) throw error;
               else {
-                response.send("Log updated for "+Email_ID).end();
+                console.log("Log updated for "+Email_ID);
               }
             })
           } else {
@@ -260,6 +260,27 @@ app.post("/api/sendMessage", (req, res) => {
 
 })
 
+app.post("/api/deleteMsg", (req, res) => {
+  const msgID= req.body.msgID;
+  console.log(req.body);
+  let decodedToken = checkAuthFromRequest(req, res);
+  if(!decodedToken) {return}
+  const {Name, Email_ID} = decodedToken;
+
+  console.log("/api/deleteMsg", decodedToken);
+
+  if(Name && Email_ID) {
+    db.query(`UPDATE message SET isDeletedForEveryone = 1 WHERE Message_ID = ${msgID}`,
+    function(err, result,fields) {
+      if(err) throw err;
+        res.status(200).end();
+    });
+  }
+  else {
+    return res.status(400).send('Missing name, email or receiver id');
+  }
+})
+
 function checkAuthFromRequest(req, res) {
   const authHeader = req.get('Authorization');
 
@@ -269,12 +290,12 @@ function checkAuthFromRequest(req, res) {
   }
 
   const token = authHeader.substring(7);
-
-  if (!(token && jwt.verify(token, process.env.JWT_SECRET))) {
+  
+  if (!token && !jwt.verify(token, process.env.JWT_SECRET)) {
     res.status(401).json({message: "Unauthorized"});
     return null;
   }
-
+  
   return jwt.decode(token);
 }
 
