@@ -134,13 +134,14 @@ USE `iiitdchat`;
 DELIMITER $$
 CREATE  PROCEDURE `newChat`(
 IN id1 varchar(100),
-IN id2 varchar(100),)
+IN id2 varchar(100),
+In newChatID varchar(100))
 BEGIN
     Declare isB1 int;
     Declare isB2 int;
     Select count(*) from user_blockedlist where User_ID = id1 and Blocked_Email_ID=id2 into isB2;
     Select count(*) from user_blockedlist where User_ID = id2 and Blocked_Email_ID=id1 into isB1;
-    INSERT INTO chat (`Chat_ID`, `User_1_ID`, `User_2_ID`) VALUES ('c1', id1,id2);
+    INSERT INTO chat (`Chat_ID`, `User_1_ID`, `User_2_ID`) VALUES (newChatID, id1,id2);
     INSERT INTO user_chat (`Email_ID`, `Chat_ID`, `isBlocked`, `isDeleted`) VALUES (id1,New.Chat_ID,isB1,'0');
     INSERT INTO user_chat (`Email_ID`, `Chat_ID`, `isBlocked`, `isDeleted`) VALUES (id2,New.Chat_ID,isB2,'0');
 END$$
@@ -154,15 +155,36 @@ call iiitdchat.newChat('user1@gmail.com','user2@gmail.com');
 USE `iiitdchat`;
 DELIMITER $$
 CREATE  PROCEDURE `fetchBlockedEmail`(
-IN id1 varchar(100),
-IN id2 varchar(100),
-In ofs int)
+IN id varchar(100)
+)
 BEGIN
     Create TEMPORARY table temp(
         ID varchar(100)
     );
-    Insert into temp(ID) Select Blocked_Email_ID from user_blockedlist where User_Email_ID= ?;
+    Insert into temp(ID) Select Blocked_Email_ID from user_blockedlist where User_Email_ID= id;
     Select ID,Name,status,Log from temp Inner join users on ID=Email_ID;
+    Drop table temp;
+END$$
+DELIMITER ;
+
+call iiitdchat.fetchBlockedEmail('user1@gmail.com', 5, 0);
+----------------------------------------------------------------
+
+-- newGroup is created
+USE `iiitdchat`;
+DELIMITER $$
+CREATE  PROCEDURE `newGroup`(
+    IN Date_of_creation DateTime,
+    IN Name varchar(100),
+    IN CreatorId varchar(100),
+    IN newGroupID varchar(100)
+)
+BEGIN
+    INSERT INTO grps (`Group_ID`, `Date_of_creation`, `GName`, `Creator_ID`) 
+    VALUES (newGroupID,Date_of_creation,Name,CreatorId);
+
+    INSERT INTO user_group (`User_ID`, `Group_ID`,`Date_Of_Joining`,`isDeleted`,`Date_Of_leaving`,`isBlocked`) 
+    Select Id,temp.Group_ID,Date_of_creation from temp inner join grps ON grps.Group_ID=temp.Group_ID ;
     Drop table temp;
 END$$
 DELIMITER ;
