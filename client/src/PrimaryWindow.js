@@ -31,13 +31,24 @@ export default function PrimaryWindow({sectionSetter, section, setItem, item, se
                             Sending_Date_Time: new Date(message.Sending_Date_Time)
                         }
                     });
+                    console.log("recentChats", receivedChats);
+
                     const uniqueChatMap = {};
-                    receivedChats.forEach(chat => uniqueChatMap[chat.Reciever_ID] = chat);
+                    const recIDList = [];
+                    receivedChats.forEach(chat => {
+                        if(!recIDList.includes(chat.Reciever_ID)){
+                            recIDList.push(chat.Reciever_ID);
+                        }
+                    });
+                    receivedChats.
                     setChats(Object.values(uniqueChatMap));
-                    console.log("chats", chats);
+
+                    console.log("recentChatsAfter", uniqueChatMap);
                 }).catch(error => {
                     console.error(error);
                 })
+                break;
+
             case "contacts":
                 axios.get("http://localhost:3001/api/getAllContacts", {
                     headers: { Authorization: `bearer ${sessionStorage['user-token']}` }
@@ -48,6 +59,8 @@ export default function PrimaryWindow({sectionSetter, section, setItem, item, se
                 })).catch(error => {
                     console.error(error);
                 })
+                break;
+
             case "blocked":
                 axios.get("http://localhost:3001/api/getBlockedList", {
                     headers: { Authorization: `bearer ${sessionStorage['user-token']}` }
@@ -59,8 +72,10 @@ export default function PrimaryWindow({sectionSetter, section, setItem, item, se
                 })).catch(error => {
                     console.error(error);
                 })
+                break;
+                
         }
-    }, [section]);
+    }, [section, item]);
 
     function chatMapper(chat, index){
         return <ChatContainer key={index} name={chat.Name} sentdate={chat.Sending_Date_Time} lasttext={chat.Message_Body} setItem={setItem} ID={chat.Reciever_ID} item={item}/>;
@@ -89,8 +104,8 @@ export default function PrimaryWindow({sectionSetter, section, setItem, item, se
         <div id="primaryWindowWrapper">
             <div id="topNavBar">
                 <button className={section=="chats"?"sectionButton whiteButton":"sectionButton"} id="chatsBtn" onClick={() => {sectionSetter("chats");setItem("null")}}>Chats</button>
-                <button className={section=="contacts"?"sectionButton whiteButton":"sectionButton"}  id="contactsBtn" onClick={() => {sectionSetter("contacts");setItem("null")}}>Contacts</button>
-                <button className={section=="blocked"?"sectionButton whiteButton":"sectionButton"}  id="blockedBtn" onClick={() => {sectionSetter("blocked");setItem("null")}}>Blocked</button>
+                <button className={section=="contacts"?"sectionButton whiteButton":"sectionButton"}  id="contactsBtn" onClick={() => {sectionSetter("contacts");setSelectedContact("null")}}>Contacts</button>
+                <button className={section=="blocked"?"sectionButton whiteButton":"sectionButton"}  id="blockedBtn" onClick={() => {sectionSetter("blocked");setSelectedBlockedContact("null")}}>Blocked</button>
             </div>
 
             <div id="primaryWindow">
