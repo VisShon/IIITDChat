@@ -123,8 +123,3 @@ CREATE TABLE Contacts (
   FOREIGN KEY (Email_ID) REFERENCES Users(Email_ID),
   FOREIGN KEY (Contact_Email_ID) REFERENCES Users(Email_ID)
 );
-CREATE TABLE Teacher (
-  Teacher_Email_ID varchar(100),
-  Teacher_Name varchar(100),
-  PRIMARY KEY(Teacher_Email_ID)
-);

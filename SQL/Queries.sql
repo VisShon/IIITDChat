@@ -99,7 +99,7 @@ BEGIN
     Insert INTO temp2(ID) Select Group_ID from User_Group where User_ID = @UID;
     Insert into temp(ID,Name) Select Group_ID, GName from Grps Inner join temp2 on Grps.Group_ID = temp2.ID; 
     drop table temp2;
-    Select Reciever_ID, Message_Body, Sending_Date_Time,Name from Message Inner join temp ON (`ID` = Reciever_ID);
+    Select Reciever_ID, Message_Body, Sending_Date_Time,Name from Message Inner join temp ON (`ID` = Reciever_ID) order by Sending_Date_Time DESC;
     Drop table temp;
 
 END$$
