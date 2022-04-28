@@ -18,6 +18,18 @@
     display: grid;
     grid-template-rows: 70px auto 70px;
 }
+#contactDescBar{
+    background-color: #97E9E4;
+    height: 46px;
+    border-radius: 23px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 1rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 #itemDescBar{
     background-color: #97E9E4;
     height: 46px;
@@ -45,6 +57,11 @@
     margin-right: 2rem;
     align-self: center;
     font-size: 12px;
+
+    max-width: 50%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 #chatWindow{
@@ -56,7 +73,10 @@
     flex-direction: column;
     flex-grow: auto;
 
-    max-height: 56vh;
+    max-height: 59vh;
+}
+#profileWindow{
+    padding: 2rem 3rem 2rem 3rem;
 }
 #textBar{
     height: 60px;
@@ -74,7 +94,7 @@
 
 #textBox{
     height: 46px;
-    width: 85%;
+    width: 75%;
 
     border: none;
 
@@ -116,6 +136,33 @@
 #msgSendBtn:active{
     background-color: #1b807b;
     box-shadow: inset 1px 1px 5px #000000;
+}
+
+#imgToggleBtn{
+    border: solid;
+    border-radius: 23px;
+    border-color: #39AEA8;
+
+    font-family: "poppins";
+    font-size: 14px;
+    
+    background-color: #ffffff;
+    color: #000000;
+
+    margin-left: .8%;
+
+    height: 46px;
+    width: 5%;
+}
+#imgToggleBtn:hover{
+    border-color: #54c2bc;
+    background-color: #54c2bc;
+    color: #ffffff;
+}
+#imgToggleBtn:active{
+    border-color: #39AEA8;
+    background-color: #39AEA8;
+    color: #ffffff;
 }
 #secondaryWindow2{
     grid-column: 3/4;
