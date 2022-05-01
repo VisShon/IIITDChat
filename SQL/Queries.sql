@@ -4,13 +4,15 @@ USE `iiitdchat`;
 DELIMITER $$
 CREATE  PROCEDURE `fetchC`(
 IN id1 varchar(100),
-IN id2 varchar(100))
+IN id2 varchar(100),
+IN lim int,
+In ofs int)
 BEGIN
     DECLARE RID varchar(100);
     Set @RID = (
         Select Chat_ID From Chat WHERE User_1_id = id1 AND User_2_id = id2
         );
-	Select * From Message Where Reciever_ID = @RID;
+	Select * From Message Where Reciever_ID = @RID  Limit lim offset ofs;
 END$$
 DELIMITER ;
 
@@ -21,12 +23,14 @@ call iiitdchat.fetchC('user1@gmail.com', 'user2@gmail.com');
 USE `iiitdchat`;
 DELIMITER $$
 CREATE  PROCEDURE `fetchG`(
-IN id varchar(100))
+IN id varchar(100),
+IN lim int,
+In ofs int)
 BEGIN
 
     DECLARE RID varchar(100);
     Set @RID = id;
-	Select * From Message Where Reciever_ID = @RID;
+	Select * From Message Where Reciever_ID = @RID Limit lim offset ofs;
 END$$
 DELIMITER;
 
@@ -139,15 +143,15 @@ In newChatID varchar(100))
 BEGIN
     Declare isB1 int;
     Declare isB2 int;
-    Select count(*) from user_blockedlist where User_ID = id1 and Blocked_Email_ID=id2 into isB2;
-    Select count(*) from user_blockedlist where User_ID = id2 and Blocked_Email_ID=id1 into isB1;
+    Select count(*) from user_blockedlist where User_Email_ID = id1 and Blocked_Email_ID=id2 into isB2;
+    Select count(*) from user_blockedlist where User_Email_ID = id2 and Blocked_Email_ID=id1 into isB1;
     INSERT INTO chat (`Chat_ID`, `User_1_ID`, `User_2_ID`) VALUES (newChatID, id1,id2);
     INSERT INTO user_chat (`Email_ID`, `Chat_ID`, `isBlocked`, `isDeleted`) VALUES (id1,New.Chat_ID,isB1,'0');
     INSERT INTO user_chat (`Email_ID`, `Chat_ID`, `isBlocked`, `isDeleted`) VALUES (id2,New.Chat_ID,isB2,'0');
 END$$
 DELIMITER ;
 
-call iiitdchat.newChat('user1@gmail.com','user2@gmail.com');
+call iiitdchat.newChat('user1@gmail.com','user2@gmail.com','newChatID');
 ----------------------------------------------------------------
 
 

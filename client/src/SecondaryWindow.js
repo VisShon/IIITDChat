@@ -202,7 +202,15 @@ export default function SecondaryWindow({sectionSetter, section, item, selectedC
     }
 
     function startChat(){
-        return;
+        const email2 = contactInfo.Email_ID;
+
+        axios.post("http://localhost:3001/api/newChat", {email: email2}, {
+        headers : { Authorization : `bearer ${sessionStorage["user-token"]}`}
+        }).then((req, res) => {
+            console.log("new chat created with ", email2);
+        }).catch((error) => {
+            console.log(error);
+        })
     }
 
     if(section==="chats"){

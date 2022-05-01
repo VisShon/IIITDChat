@@ -70,6 +70,21 @@
     font-family: "poppins";
     margin-right: 1rem;
 }
+#startChat{
+    background-color: #54c2bc;
+    border-radius: 20px;
+    border-style: none;
+    font-family: "poppins";
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    color: #ffffff;
+}
+#startChat:hover{
+    background-color: #39AEA8;
+}
+#startChat:active{
+    background-color: #27938d;
+    box-shadow: inset 1px 1px 5px #000000;
+}
 #updateBtn{
     border-radius: 20px;
     font-family: "poppins";

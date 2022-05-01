@@ -322,6 +322,63 @@ app.post("/api/updateProfile", (req, res) => {
 
 })
 
+app.post("/api/newChat", (req, res) => {
+  const Email2= req.body.email;
+  console.log(req.body);
+
+  let decodedToken = checkAuthFromRequest(req, res);
+  if(!decodedToken) {return}
+  const {Name, Email_ID} = decodedToken;
+
+  console.log("/api/newChat", decodedToken);
+
+  if(Name && Email_ID && Email2){
+    
+    db.query(`SELECT * FROM chat ORDER BY Chat_ID DESC LIMIT 1`, function(err, result, fields){
+
+      console.log("result: ", result);
+      const lastChatID = result[0].Chat_ID;
+
+      console.log("lastC= ", lastChatID);
+      let cID = `${lastChatID}`.slice(1);
+      console.log("cID= ", cID);
+      cID = parseInt(cID);
+      cID = cID+1;
+      console.log("cID= ", cID);
+      const finalCID = "c"+`${cID}`;
+
+      console.log("finalCID= ", finalCID);
+
+      db.query(`call iiitdchat.newChat(?, ?, ?)`, [Email_ID, Email2, finalCID ],
+      function(err, result,fields) {
+        if(err) throw err;
+          res.status(200).end();
+      });
+
+      var date = new Date();
+      date = date.getUTCFullYear() + '-' +
+          ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' +
+          ('00' + date.getUTCDate()).slice(-2) + ' ' + 
+          ('00' + date.getUTCHours()).slice(-2) + ':' + 
+          ('00' + date.getUTCMinutes()).slice(-2) + ':' + 
+          ('00' + date.getUTCSeconds()).slice(-2);
+
+      db.query("call iiitdchat.SendMsg(?, null, ?, ?, ?, null, 0, 0, 1, ?, 0)",
+      [Email_ID, finalCID, "Hi", date, 0], function(err, result,fields) {
+        if(err) throw err;
+          res.status(200).end();
+      });
+    })
+
+
+
+  }
+  else {
+    return res.status(400).send('Missing name, email or receiver id');
+  }
+
+})
+
 function checkAuthFromRequest(req, res) {
   const authHeader = req.get('Authorization');
 
