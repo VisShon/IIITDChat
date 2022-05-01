@@ -64,6 +64,29 @@
     white-space: nowrap;
 }
 
+.inputBoxes{
+    border-radius: 20px;
+    padding-left: 1rem;
+    font-family: "poppins";
+    margin-right: 1rem;
+}
+#updateBtn{
+    border-radius: 20px;
+    font-family: "poppins";
+    border-style: none;
+    background-color: #39AEA8;
+    color: #ffffff;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+#updateBtn:hover{
+    background-color: #27938d;
+}
+#updateBtn:active{
+    background-color: #1b807b;
+    box-shadow: inset 1px 1px 5px #000000;
+}
+
 #chatWindow{
     min-width: 100%;
 

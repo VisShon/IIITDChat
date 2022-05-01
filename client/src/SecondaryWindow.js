@@ -4,12 +4,16 @@ import TextContainer from "./TextContainer.js"
 import axios from "axios";
 import { useParams } from "react-router";
 
-export default function SecondaryWindow({sectionSetter, section, item, selectedContact, setSelectedContact, selectedBlockedContact, setSelectedBlockedContact}){
+export default function SecondaryWindow({sectionSetter, section, item, selectedContact, setSelectedContact, selectedBlockedContact, setSelectedBlockedContact, setProfileName}){
     const [log, setLog] = useState("Never");
     const [name, setName] = useState("Recipient Name");
     const [textList, setTextList] = useState([]);
     const [msgContent, setMsgContent] = useState("");
     const [imgToggle, setImgToggle] = useState("txt");
+    const [updatedName ,setUpdatedName] = useState("");
+    const [updatedStatus ,setUpdatedStatus] = useState("");
+    const [updatedNumber ,setUpdatedNumber] = useState(0);
+
     const chatWindowRef = useRef();
     // const imgToggleRef = useRef();
 
@@ -85,7 +89,19 @@ export default function SecondaryWindow({sectionSetter, section, item, selectedC
                         console.error(error);
                     });
                 }
+                break;
 
+            case "profile":
+                // profile section
+                axios.get(`http://localhost:3001/api/getContactInfo`, {
+                    headers: { Authorization: `bearer ${sessionStorage['user-token']}`}
+                }).then((res) => {
+                    const itemInfo = res.data;
+                    setContactInfo(itemInfo[0]);
+                    console.log("iteminfo=", itemInfo[0]);
+                }).catch(error => {
+                    console.error(error);
+                });
                 break;
         }
     }
@@ -109,19 +125,6 @@ export default function SecondaryWindow({sectionSetter, section, item, selectedC
         });
     }
 
-
-    // useEffect(() => {
-    //     if(item!="null"){
-    //         const interval = setInterval(() => {
-    //             console.log("fetched message")
-
-    //             fetchMessages(item);
-
-    //         }, 5000);
-    //         console.log(interval, 'interval');
-    //     }
-    // });
-
     useEffect(() => {
         fetchData(item, selectedContact, selectedBlockedContact);
     }, [item, selectedContact, selectedBlockedContact, section]);
@@ -142,6 +145,7 @@ export default function SecondaryWindow({sectionSetter, section, item, selectedC
     function sendMsg(){
         const messageBody = msgContent;
         if(msgContent===""){
+            fetchMessages(item);
             return;
         }
         var date = new Date();
@@ -176,6 +180,30 @@ export default function SecondaryWindow({sectionSetter, section, item, selectedC
         })
     }
 
+    function updateProfile(){
+        const Uname = updatedName;
+        const Ustatus = updatedStatus;
+        const Unumber = updatedNumber;
+        const profileInfo = [Uname, Ustatus, Unumber];
+        axios.post(`http://localhost:3001/api/updateProfile`, profileInfo, {
+            headers :{ Authorization : `bearer ${sessionStorage["user-token"]}`}
+        }).then((req, res) => {
+            sectionSetter("profile");
+        }).catch((error) => {
+            console.log(error);
+        })
+
+        setProfileName(Uname);
+        
+        setUpdatedName("");
+        setUpdatedStatus("");
+        setUpdatedNumber(0);
+
+    }
+
+    function startChat(){
+        return;
+    }
 
     if(section==="chats"){
         if(item==="null"){
@@ -239,6 +267,36 @@ export default function SecondaryWindow({sectionSetter, section, item, selectedC
                     Last online: {(new Date(contactInfo.Log)).toDateString() + ' ' +  (new Date(contactInfo.Log)).toLocaleTimeString()}<br/><br/>
                     Contact No: {contactInfo.Phone_No}<br/><br/>
                     Roll No: {contactInfo.Roll_no}<br/><br/>
+                    <div id="buttonArea">
+                        <button id="startChat" onClick={startChat}>Start Chat</button>
+                    </div>
+                </div>
+            </div>
+            </>
+        );
+    }
+    if(section==="profile"){
+        return(
+            <>
+            <div id="secondaryWindow">
+                <div id="contactDescBar">
+                    <div id="itemName">{contactInfo.Name}</div>
+                    <div id="itemInfo">{contactInfo.status}</div>
+                </div>
+                <div id="profileWindow">
+                    Date of joining: {(new Date(contactInfo.Date_of_joining)).toDateString() + ' ' +  (new Date(contactInfo.Date_of_joining)).toLocaleTimeString()}<br/><br/>
+                    Department: {contactInfo.Department}<br/><br/>
+                    Email ID: {contactInfo.Email_ID}<br/><br/>
+                    Last online: {(new Date(contactInfo.Log)).toDateString() + ' ' +  (new Date(contactInfo.Log)).toLocaleTimeString()}<br/><br/>
+                    Contact No: {contactInfo.Phone_No}<br/><br/>
+                    Roll No: {contactInfo.Roll_no}<br/><br/>
+
+                    <div id="inputArea">
+                        <input type="text" placeholder="updated status" className="inputBoxes" value={updatedStatus} onChange={event => setUpdatedStatus(event.target.value)}></input>
+                        <input type="number" placeholder="updated contact no." className="inputBoxes" value={updatedNumber} onChange={event => setUpdatedNumber(event.target.value)}></input>
+                        <input type="text" placeholder="updated name" className="inputBoxes" value={updatedName} onChange={event => setUpdatedName(event.target.value)}></input>
+                        <button type="submit" id="updateBtn" onClick={updateProfile} >Update</button>
+                    </div>
                 </div>
             </div>
             </>

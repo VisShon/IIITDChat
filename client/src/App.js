@@ -13,15 +13,15 @@ function App(props) {
   const [selectedItem, setSelectedItem] = useState("null");
   const [selectedContact, setSelectedContact] = useState("null");
   const [selectedBlockedContact, setSelectedBlockedContact] = useState("null");
-  
+
   useEffect(() => {
-    console.log("ud chala")
+    // console.log("ud chala")
     if (!sessionStorage.getItem('user-token')) navigate('/login')
   }
   ,[ navigate ])
 
   useEffect( () => {
-    console.log("hhun mein aaj")
+    // console.log("hhun mein aaj")
     axios.get("http://localhost:3001/api/getProfileName", {
       headers: { Authorization: `bearer ${sessionStorage['user-token']}`}
     })
@@ -34,14 +34,16 @@ function App(props) {
     })
   }, [profileName])
 
-  
+  function goToProfile(){
+    setSection("profile");
+  }
 
   return (
     <>
     <div id="homeGrid">
-      <button id="profileBar">{profileName}</button>
+      <button id="profileBar" onClick={goToProfile}>{profileName}</button>
       <PrimaryWindow sectionSetter={setSection} section={section} setItem={setSelectedItem} item={selectedItem} selectedContact={selectedContact} setSelectedContact={setSelectedContact} selectedBlockedContact={selectedBlockedContact} setSelectedBlockedContact={setSelectedBlockedContact}/>
-      <SecondaryWindow sectionSetter={setSection} section={section} item={selectedItem}  selectedContact={selectedContact} setSelectedContact={setSelectedContact} selectedBlockedContact={selectedBlockedContact} setSelectedBlockedContact={setSelectedBlockedContact}/>
+      <SecondaryWindow sectionSetter={setSection} section={section} item={selectedItem}  selectedContact={selectedContact} setSelectedContact={setSelectedContact} selectedBlockedContact={selectedBlockedContact} setSelectedBlockedContact={setSelectedBlockedContact} setProfileName={setProfileName}/>
     </div>
     </>
   );

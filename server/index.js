@@ -149,6 +149,24 @@ app.get("/api/getContactInfo/:item", (req, res) => {
   }
 })
 
+app.get("/api/getContactInfo", (req, res) => {
+  let decodedToken = checkAuthFromRequest(req, res);
+  if(!decodedToken) {return}
+  const{Name ,Email_ID} = decodedToken;
+
+  console.log("/api/getContactInfo", Name, Email_ID);
+  if(Name && Email_ID) {
+    db.query('SELECT *FROM users WHERE Email_ID = ?',
+    [Email_ID], function(err, result,fields) {
+      if(err) throw err;
+      res.json(result);
+    });
+  }
+  else {
+    return res.status(400).send('Missing name, email or contact email');
+  }
+})
+
 app.get("/api/getBlockedInfo/:item", (req, res) => {
   let decodedToken = checkAuthFromRequest(req, res);
   if(!decodedToken) {return}
@@ -270,7 +288,7 @@ app.post("/api/deleteMsg", (req, res) => {
   console.log("/api/deleteMsg", decodedToken);
 
   if(Name && Email_ID) {
-    db.query(`UPDATE message SET isDeletedForEveryone = 1 WHERE Message_ID = ${msgID}`,
+    db.query(`UPDATE message SET isDeletedForEveryone = 1 WHERE Message_ID = '${msgID}'`,
     function(err, result,fields) {
       if(err) throw err;
         res.status(200).end();
@@ -279,6 +297,29 @@ app.post("/api/deleteMsg", (req, res) => {
   else {
     return res.status(400).send('Missing name, email or receiver id');
   }
+})
+
+app.post("/api/updateProfile", (req, res) => {
+  const profileInfo= req.body;
+  console.log(req.body);
+
+  let decodedToken = checkAuthFromRequest(req, res);
+  if(!decodedToken) {return}
+  const {Name, Email_ID} = decodedToken;
+
+  console.log("/api/deleteMsg", decodedToken, profileInfo);
+
+  if(Name && Email_ID && profileInfo){
+    db.query(`UPDATE users SET Name = ? , status = ? , Phone_No = ? WHERE Email_ID = ?`, [...profileInfo, Email_ID],
+    function(err, result,fields) {
+      if(err) throw err;
+        res.status(200).end();
+    });
+  }
+  else {
+    return res.status(400).send('Missing name, email or receiver id');
+  }
+
 })
 
 function checkAuthFromRequest(req, res) {

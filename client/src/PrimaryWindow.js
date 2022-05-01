@@ -75,6 +75,11 @@ export default function PrimaryWindow({sectionSetter, section, setItem, item, se
                     console.error(error);
                 })
                 break;
+            
+            case "profile":
+                console.log("profile section");
+                break;
+
                 
         }
     }, [section, item]);
