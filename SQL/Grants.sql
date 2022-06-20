@@ -1,0 +1,1 @@
+REVOKE ALL ON Admins TO 'Anshul'@'localhost;
