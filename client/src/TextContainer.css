@@ -23,6 +23,24 @@
 
     color: black;
 }
+
+.senderName{
+    margin: 0rem 0.5rem 0rem 0.5rem;
+
+    font-family: "poppins";
+    font-size: 12px;
+    font-weight: 600;
+
+    color: black;
+}
+.userTextContainer{
+    justify-content: right;
+}
+
+.dateAndDltWrapper{
+    display: flex;
+    justify-content: space-between;
+}
 .date{
     margin: 0rem 0.5rem 0rem 0.5rem;
     
@@ -32,15 +50,26 @@
 
     color: #787878;
 }
-.senderName{
-    margin: 0rem 0.5rem 0rem 0.5rem;
 
+
+.deleteBtn {
+    margin-left: 0.4rem;
+    margin-top: 0.2rem;
+    border-style: none;
+    background-color: rgb(28, 122, 122);
+    color: #ffffff;
+    border-radius: 5px;
     font-family: "poppins";
-    font-size: 14px;
-    font-weight: 600;
-
-    color: black;
+    font-size: 10px;
+    display: none;
 }
-.userTextContainer{
-    justify-content: right;
+  
+.textContainer:hover .deleteBtn {
+    display: inline;
+    background-color: #1F5C59;
+
+}
+.textContainer:hover .deleteBtn:hover {
+    background-color: #133f3d;
+
 }

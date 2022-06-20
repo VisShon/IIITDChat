@@ -14,10 +14,22 @@
   grid-row: 2/3;
   grid-column: 2/3;
 
+  border-style: none;
+  background-color: #39AEA8;
+  border-radius: 23px;
+
+  /* width: 100px; */
 
   font-family: "poppins";
   font-size: 14px;
   font-weight: 600;
 
-  padding-left: 36px;
+  margin-bottom: 1rem;
+  /* margin-left: 1rem; */
+
+  color: #ffffff;
+  padding: 0.2rem 2rem 0.2rem 2rem;
+}
+#profileBar:hover{
+  background-color: #299590;
 }

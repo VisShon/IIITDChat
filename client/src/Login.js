@@ -32,7 +32,7 @@ export default function Login() {
 
     console.log('waiting for auth')
     try {
-      const token = await loginUser({
+      const token = await loginUser(  {
         username,
         password
       });

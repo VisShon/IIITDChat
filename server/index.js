@@ -63,7 +63,7 @@ app.post('/auth', function(request, response) {
             db.query("UPDATE users SET Log = ? WHERE Email_ID = ?", [date, Email_ID], function(error, results, fields) {
               if (error) throw error;
               else {
-                response.send("Log updated for "+Email_ID).end();
+                console.log("Log updated for "+Email_ID);
               }
             })
           } else {
@@ -140,6 +140,24 @@ app.get("/api/getContactInfo/:item", (req, res) => {
   if(Name && Email_ID && contactEmail) {
     db.query('SELECT *FROM users WHERE Email_ID = ?',
     [contactEmail], function(err, result,fields) {
+      if(err) throw err;
+      res.json(result);
+    });
+  }
+  else {
+    return res.status(400).send('Missing name, email or contact email');
+  }
+})
+
+app.get("/api/getContactInfo", (req, res) => {
+  let decodedToken = checkAuthFromRequest(req, res);
+  if(!decodedToken) {return}
+  const{Name ,Email_ID} = decodedToken;
+
+  console.log("/api/getContactInfo", Name, Email_ID);
+  if(Name && Email_ID) {
+    db.query('SELECT *FROM users WHERE Email_ID = ?',
+    [Email_ID], function(err, result,fields) {
       if(err) throw err;
       res.json(result);
     });
@@ -260,6 +278,107 @@ app.post("/api/sendMessage", (req, res) => {
 
 })
 
+app.post("/api/deleteMsg", (req, res) => {
+  const msgID= req.body.msgID;
+  console.log(req.body);
+  let decodedToken = checkAuthFromRequest(req, res);
+  if(!decodedToken) {return}
+  const {Name, Email_ID} = decodedToken;
+
+  console.log("/api/deleteMsg", decodedToken);
+
+  if(Name && Email_ID) {
+    db.query(`UPDATE message SET isDeletedForEveryone = 1 WHERE Message_ID = '${msgID}'`,
+    function(err, result,fields) {
+      if(err) throw err;
+        res.status(200).end();
+    });
+  }
+  else {
+    return res.status(400).send('Missing name, email or receiver id');
+  }
+})
+
+app.post("/api/updateProfile", (req, res) => {
+  const profileInfo= req.body;
+  console.log(req.body);
+
+  let decodedToken = checkAuthFromRequest(req, res);
+  if(!decodedToken) {return}
+  const {Name, Email_ID} = decodedToken;
+
+  console.log("/api/deleteMsg", decodedToken, profileInfo);
+
+  if(Name && Email_ID && profileInfo){
+    db.query(`UPDATE users SET Name = ? , status = ? , Phone_No = ? WHERE Email_ID = ?`, [...profileInfo, Email_ID],
+    function(err, result,fields) {
+      if(err) throw err;
+        res.status(200).end();
+    });
+  }
+  else {
+    return res.status(400).send('Missing name, email or receiver id');
+  }
+
+})
+
+app.post("/api/newChat", (req, res) => {
+  const Email2= req.body.email;
+  console.log(req.body);
+
+  let decodedToken = checkAuthFromRequest(req, res);
+  if(!decodedToken) {return}
+  const {Name, Email_ID} = decodedToken;
+
+  console.log("/api/newChat", decodedToken);
+
+  if(Name && Email_ID && Email2){
+    
+    db.query(`SELECT * FROM chat ORDER BY Chat_ID DESC LIMIT 1`, function(err, result, fields){
+
+      console.log("result: ", result);
+      const lastChatID = result[0].Chat_ID;
+
+      console.log("lastC= ", lastChatID);
+      let cID = `${lastChatID}`.slice(1);
+      console.log("cID= ", cID);
+      cID = parseInt(cID);
+      cID = cID+1;
+      console.log("cID= ", cID);
+      const finalCID = "c"+`${cID}`;
+
+      console.log("finalCID= ", finalCID);
+
+      db.query(`call iiitdchat.newChat(?, ?, ?)`, [Email_ID, Email2, finalCID ],
+      function(err, result,fields) {
+        if(err) throw err;
+          res.status(200).end();
+      });
+
+      var date = new Date();
+      date = date.getUTCFullYear() + '-' +
+          ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' +
+          ('00' + date.getUTCDate()).slice(-2) + ' ' + 
+          ('00' + date.getUTCHours()).slice(-2) + ':' + 
+          ('00' + date.getUTCMinutes()).slice(-2) + ':' + 
+          ('00' + date.getUTCSeconds()).slice(-2);
+
+      db.query("call iiitdchat.SendMsg(?, null, ?, ?, ?, null, 0, 0, 1, ?, 0)",
+      [Email_ID, finalCID, "Hi", date, 0], function(err, result,fields) {
+        if(err) throw err;
+          res.status(200).end();
+      });
+    })
+
+
+
+  }
+  else {
+    return res.status(400).send('Missing name, email or receiver id');
+  }
+
+})
+
 function checkAuthFromRequest(req, res) {
   const authHeader = req.get('Authorization');
 
@@ -269,12 +388,12 @@ function checkAuthFromRequest(req, res) {
   }
 
   const token = authHeader.substring(7);
-
-  if (!(token && jwt.verify(token, process.env.JWT_SECRET))) {
+  
+  if (!token && !jwt.verify(token, process.env.JWT_SECRET)) {
     res.status(401).json({message: "Unauthorized"});
     return null;
   }
-
+  
   return jwt.decode(token);
 }
 
