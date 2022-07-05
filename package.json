@@ -3,8 +3,8 @@
   "name": "iiitd-chat",
   "version": "1.0.0",
   "engines":{
-    "node":"16.x",
-    "npm":"8.x"
+    "node":"16.14.2",
+    "npm":"8.5.0"
   },
   "description": "iiitd chat app for DBMS",
   "main": "index.js",
