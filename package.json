@@ -2,6 +2,9 @@
   "proxy": "http://localhost:3001/",
   "name": "iiitd-chat",
   "version": "1.0.0",
+  "engines":{
+    "node":"16.x"
+  },
   "description": "iiitd chat app for DBMS",
   "main": "index.js",
   "scripts": {
