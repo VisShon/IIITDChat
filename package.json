@@ -5,7 +5,7 @@
   "description": "iiitd chat app for DBMS",
   "main": "index.js",
   "scripts": {
-    "production": "npm run client && npm run server",
+    "production": "concurrently \"npm run client\" \"npm run server\"",
     "start": "concurrently -k -p '{name}' -n 'server,client' -c 'bgBlue.bold,bgGreen.bold' 'npm:server' 'npm:client'",
     "server": "npm run start --prefix Backend",
     "client": "npm run build --prefix Frontend ",
