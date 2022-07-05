@@ -397,6 +397,13 @@ function checkAuthFromRequest(req, res) {
   return jwt.decode(token);
 }
 
+//serving frontend 
+app.use(express.static(path.join(__dirname, '../Frontend/build')))
+app.get('*',(req, res) => {
+  res.sendFile(path.resolve(__dirname, '../','Frontend','build','index.html'))
+})
+
+
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });
