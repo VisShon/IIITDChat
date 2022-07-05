@@ -6,9 +6,8 @@
   "main": "index.js",
   "scripts": {
     "production": "npm run client && npm run server",
-    "start": "concurrently -k -p '{name}' -n 'server,client' -c 'bgBlue.bold,bgGreen.bold' 'npm:server' 'npm:client'",
-    "server": "npm run start --prefix Backend",
-    "client": "npm run build --prefix Frontend ",
+    "start": "npm run start --prefix Backend",
+    "build": "npm run build --prefix Frontend ",
     "test": "start"
   },
   "author": "",
