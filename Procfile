@@ -1,1 +1,1 @@
-worker:npm run client && npm run server
+worker:npm run start
