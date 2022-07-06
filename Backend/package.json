@@ -4,7 +4,7 @@
   "description": "Backend for IIITD chat",
   "main": "index.js",
   "scripts": {
-    "start": "npm install && node index.js",
+    "start": "npm ci --force && node index.js",
     "devstart": "nodemon .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
