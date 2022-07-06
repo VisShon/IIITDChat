@@ -1,6 +1,7 @@
 ./node_modules
-./server/node_modules
-./client/node_modules
-./server/.env
+./Backend/node_modules
+./Frontend/node_modules
+./Backend/.env
 node_modules
 node_modules
+Backend/.env
